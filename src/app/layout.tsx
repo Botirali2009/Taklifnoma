@@ -14,7 +14,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="uz">
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        {/* JavaScript o'chirilgan bo'lsa animatsiyali bloklar ko'rinib tursin */}
+        <noscript>
+          <style>{`[data-reveal]{opacity:1 !important;transform:none !important}`}</style>
+        </noscript>
+        {children}
+      </body>
     </html>
   );
 }

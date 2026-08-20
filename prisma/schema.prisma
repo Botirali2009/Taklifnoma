@@ -170,6 +170,7 @@ model Invitation {
   events   Event[]
   photos   Photo[]
   guests   Guest[]
+  wishes   Wish[]
   payments Payment[]
 
   @@index([userId])
@@ -231,6 +232,22 @@ model Guest {
 
   @@index([invitationId])
   @@map("guests")
+}
+
+/// Mehmon qoldirgan tilak (public sahifadagi forma)
+model Wish {
+  id           String   @id @default(cuid())
+  invitationId String   @map("invitation_id")
+  authorName   String   @map("author_name")
+  message      String
+  /// Moderatsiya uchun — egasi kerak bo'lsa yashira oladi
+  isVisible    Boolean  @default(true) @map("is_visible")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  invitation Invitation @relation(fields: [invitationId], references: [id], onDelete: Cascade)
+
+  @@index([invitationId])
+  @@map("wishes")
 }
 
 model Payment {

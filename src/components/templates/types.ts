@@ -1,4 +1,5 @@
 import type { EventType } from "@/generated/prisma/enums";
+import type { WishView } from "@/components/invitation/WishesSection";
 
 export type InvitationEventView = {
   id: string;
@@ -27,10 +28,13 @@ export type InvitationView = {
   musicUrl: string | null;
   events: InvitationEventView[];
   photos: InvitationPhotoView[];
+  wishes: WishView[];
 };
 
 export type TemplateProps = {
   invitation: InvitationView;
-  /** Preview rejimida RSVP tugmasi ishlamaydi */
+  /** Preview rejimida formalar va RSVP tugmasi ishlamaydi */
   preview?: boolean;
 };
+
+export type { WishView };

@@ -34,6 +34,13 @@ function demoInvitation(): InvitationView {
       },
     ],
     photos: [],
+    wishes: [
+      {
+        id: "demo-wish",
+        authorName: "Aziza",
+        message: "Baxtli bo'linglar! Umringiz uzoq bo'lsin.",
+      },
+    ],
   };
 }
 

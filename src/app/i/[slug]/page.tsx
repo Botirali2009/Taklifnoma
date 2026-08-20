@@ -14,6 +14,11 @@ async function getInvitation(slug: string) {
       template: true,
       events: { orderBy: { order: "asc" } },
       photos: { orderBy: { order: "asc" } },
+      wishes: {
+        where: { isVisible: true },
+        orderBy: { createdAt: "desc" },
+        take: 50,
+      },
     },
   });
 }
@@ -55,6 +60,11 @@ export default async function PublicInvitationPage({ params }: Props) {
         musicUrl: invitation.musicUrl,
         events: invitation.events,
         photos: invitation.photos,
+        wishes: invitation.wishes.map((wish) => ({
+          id: wish.id,
+          authorName: wish.authorName,
+          message: wish.message,
+        })),
       }}
     />
   );

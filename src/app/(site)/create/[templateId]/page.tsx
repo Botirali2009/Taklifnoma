@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { getTemplateMeta } from "@/data/templates";
-import { CreateInvitationForm } from "./CreateInvitationForm";
+import { CreateWizard } from "./CreateWizard";
 
 type Props = { params: { templateId: string } };
 
@@ -15,7 +15,7 @@ export default function CreateInvitationPage({ params }: Props) {
         Taklifnoma yaratish
       </h1>
 
-      <CreateInvitationForm templateCode={meta.code} />
+      <CreateWizard templateCode={meta.code} />
     </main>
   );
 }

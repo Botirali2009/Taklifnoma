@@ -9,5 +9,7 @@ export default defineConfig({
   },
   datasource: {
     url: process.env["DATABASE_URL"],
+    // Faqat lokal migration yaratishda kerak (scripts/create-migration.sh)
+    shadowDatabaseUrl: process.env["SHADOW_DATABASE_URL"],
   },
 });

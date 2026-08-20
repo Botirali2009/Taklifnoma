@@ -43,6 +43,12 @@ enum PaymentStatus {
   BEKOR_QILINDI
 }
 
+/// Foydalanuvchi roli
+enum Role {
+  USER
+  ADMIN
+}
+
 enum TemplateCategory {
   ZAMONAVIY
   MILLIY
@@ -51,12 +57,17 @@ enum TemplateCategory {
 }
 
 model User {
-  id         String   @id @default(cuid())
-  phone      String?  @unique
-  telegramId String?  @unique @map("telegram_id")
-  name       String?
-  createdAt  DateTime @default(now()) @map("created_at")
-  updatedAt  DateTime @updatedAt @map("updated_at")
+  id            String    @id @default(cuid())
+  email         String?   @unique
+  emailVerified DateTime? @map("email_verified")
+  image         String?
+  phone         String?   @unique
+  telegramId    String?   @unique @map("telegram_id")
+  telegramUsername String? @map("telegram_username")
+  name          String?
+  role          Role      @default(USER)
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
 
   invitations Invitation[]
 
@@ -98,8 +109,9 @@ model Invitation {
   /// Fon musiqasi (R2/S3 havolasi)
   musicUrl String? @map("music_url")
 
-  /// To'lov qilinganda true bo'ladi (Payme/Click webhook)
-  isActive Boolean @default(false) @map("is_active")
+  /// Hozircha barcha taklifnomalar bepul va faol.
+  /// To'lov integratsiyasi qo'shilganda default false bo'ladi va webhook yoqadi.
+  isActive Boolean @default(true) @map("is_active")
   /// Ko'rishlar hisoblagichi (statistika dashboard uchun)
   viewCount Int @default(0) @map("view_count")
 

@@ -47,7 +47,7 @@ export default async function DashboardPage({ params }: Props) {
   ];
 
   return (
-    <main className="mx-auto min-h-screen max-w-4xl px-6 py-16">
+    <main className="mx-auto max-w-4xl px-6 py-16">
       <Link href="/my-invitations" className="text-sm text-neutral-500 hover:underline">
         ← Mening taklifnomalarim
       </Link>

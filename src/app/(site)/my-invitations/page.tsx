@@ -22,7 +22,7 @@ export default async function MyInvitationsPage() {
   });
 
   return (
-    <main className="mx-auto min-h-screen max-w-3xl px-6 py-16">
+    <main className="mx-auto max-w-3xl px-6 py-16">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h1 className="text-3xl font-semibold text-neutral-900">
           Mening taklifnomalarim

@@ -21,7 +21,7 @@ const FEATURES = [
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-white">
+    <main className="bg-white">
       <section className="mx-auto max-w-3xl px-6 pb-16 pt-24 text-center">
         <h1 className="text-4xl font-semibold leading-tight text-neutral-900 sm:text-5xl">
           To&apos;yingiz uchun onlayn taklifnoma

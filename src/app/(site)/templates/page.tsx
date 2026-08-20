@@ -14,7 +14,7 @@ export const metadata = {
 
 export default function TemplatesPage() {
   return (
-    <main className="mx-auto min-h-screen max-w-4xl px-6 py-16">
+    <main className="mx-auto max-w-4xl px-6 py-16">
       <h1 className="text-3xl font-semibold text-neutral-900">Shablonlar</h1>
       <p className="mt-2 text-neutral-600">
         Yoqqan shablonni tanlang — ma&apos;lumotlaringizni keyin kiritasiz.

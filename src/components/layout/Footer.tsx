@@ -10,8 +10,8 @@ export function Footer() {
           <Link href="/templates" className="hover:text-neutral-900">
             Shablonlar
           </Link>
-          <Link href="/login" className="hover:text-neutral-900">
-            Kirish
+          <Link href="/my-invitations" className="hover:text-neutral-900">
+            Mening taklifnomalarim
           </Link>
         </nav>
       </div>

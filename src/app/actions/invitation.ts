@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { getCurrentUser } from "@/lib/auth";
+import { requireUser } from "@/lib/session";
 import { prisma } from "@/lib/prisma";
 import { generateUniqueSlug } from "@/lib/slug";
 import { getTemplateMeta } from "@/data/templates";
@@ -49,7 +49,7 @@ export async function createInvitation(
     return { error: "Sana yoki vaqt noto'g'ri kiritilgan." };
   }
 
-  const user = await getCurrentUser();
+  const user = await requireUser();
 
   // Shablon DB'da bo'lmasa — katalogdan yaratamiz (seed o'rniga)
   const meta = getTemplateMeta(templateCode)!;

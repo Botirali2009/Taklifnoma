@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ShareButtons } from "@/components/ui/ShareButtons";
 import { CopyButton } from "@/components/ui/CopyButton";
-import { getCurrentUser } from "@/lib/auth";
+import { requireUser } from "@/lib/session";
 import { prisma } from "@/lib/prisma";
 import {
   EVENT_TYPE_LABELS,
@@ -21,7 +21,7 @@ function appUrl(path: string): string {
 }
 
 export default async function DashboardPage({ params }: Props) {
-  const user = await getCurrentUser();
+  const user = await requireUser();
 
   const invitation = await prisma.invitation.findFirst({
     where: { id: params.invitationId, userId: user.id },

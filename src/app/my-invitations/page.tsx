@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getCurrentUser } from "@/lib/auth";
+import { requireUser } from "@/lib/session";
 import { prisma } from "@/lib/prisma";
 import { EVENT_TYPE_LABELS, formatDateTime } from "@/lib/format";
 
@@ -10,7 +10,7 @@ export const metadata = {
 };
 
 export default async function MyInvitationsPage() {
-  const user = await getCurrentUser();
+  const user = await requireUser();
 
   const invitations = await prisma.invitation.findMany({
     where: { userId: user.id },

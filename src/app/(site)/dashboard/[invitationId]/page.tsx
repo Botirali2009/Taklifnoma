@@ -129,6 +129,21 @@ export default async function DashboardPage({ params, searchParams }: Props) {
           </Link>
         </div>
 
+        <div className="mt-4 flex flex-wrap gap-2">
+          <a
+            href={`/api/invitations/${invitation.id}/qr`}
+            className="rounded-lg border border-neutral-300 px-4 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
+          >
+            QR kodni yuklab olish (PNG)
+          </a>
+          <a
+            href={`/api/invitations/${invitation.id}/pdf`}
+            className="rounded-lg border border-neutral-300 px-4 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
+          >
+            Chop etish uchun PDF
+          </a>
+        </div>
+
         <div className="mt-4">
           <ShareButtons
             url={publicUrl}

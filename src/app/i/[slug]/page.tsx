@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTemplateComponent } from "@/components/templates";
 import { prisma } from "@/lib/prisma";
+import { getCurrentUser } from "@/lib/session";
 
 export const dynamic = "force-dynamic";
 
@@ -39,11 +40,14 @@ export default async function PublicInvitationPage({ params }: Props) {
   const invitation = await getInvitation(params.slug);
   if (!invitation) notFound();
 
-  // Ko'rishlar hisoblagichi (statistika dashboard uchun)
-  await prisma.invitation.update({
-    where: { id: invitation.id },
-    data: { viewCount: { increment: 1 } },
-  });
+  // Ko'rishlar hisoblagichi — egasining o'z tashrifi hisoblanmaydi
+  const viewer = await getCurrentUser();
+  if (viewer?.id !== invitation.userId) {
+    await prisma.invitation.update({
+      where: { id: invitation.id },
+      data: { viewCount: { increment: 1 } },
+    });
+  }
 
   const Template = getTemplateComponent(invitation.template.code);
 

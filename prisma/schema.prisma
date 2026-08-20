@@ -225,6 +225,8 @@ model Guest {
   note         String?
   /// Telegram bot orqali javob bergan bo'lsa (Bosqich 2)
   telegramId   String?    @map("telegram_id")
+  /// Eslatma yuborilgan vaqt — takroriy xabar yubormaslik uchun
+  reminderSentAt DateTime? @map("reminder_sent_at")
   respondedAt  DateTime?  @map("responded_at")
   createdAt    DateTime   @default(now()) @map("created_at")
 
@@ -232,6 +234,18 @@ model Guest {
 
   @@index([invitationId])
   @@map("guests")
+}
+
+/// Telegram botdagi suhbat holati (bosqichma-bosqich yaratish oqimi uchun).
+/// Serverless muhitda ham ishlashi uchun xotirada emas, bazada saqlanadi.
+model BotSession {
+  id        String   @id @default(cuid())
+  chatId    String   @unique @map("chat_id")
+  step      String
+  data      Json     @default("{}")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("bot_sessions")
 }
 
 /// Mehmon qoldirgan tilak (public sahifadagi forma)

@@ -1,0 +1,196 @@
+// Taklifnoma — onlayn to'y taklifnomalari platformasi
+// Hujjat: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+/// Tadbir turi — bitta taklifnoma bitta tur uchun
+enum EventType {
+  TOY // to'y
+  NIKOH // nikoh to'yi
+  SUNNAT // sunnat to'yi
+  BESHIK_TOY // beshik to'y
+}
+
+/// Mehmon qaysi tomondan
+enum GuestSide {
+  KELIN // kelin tomoni
+  KUYOV // kuyov tomoni
+  UMUMIY
+}
+
+/// RSVP holati
+enum RsvpStatus {
+  KUTILMOQDA
+  KELADI
+  KELMAYDI
+}
+
+enum PaymentProvider {
+  PAYME
+  CLICK
+}
+
+enum PaymentStatus {
+  KUTILMOQDA
+  TOLANDI
+  BEKOR_QILINDI
+}
+
+enum TemplateCategory {
+  ZAMONAVIY
+  MILLIY
+  LUX
+  MINIMALIST
+}
+
+model User {
+  id         String   @id @default(cuid())
+  phone      String?  @unique
+  telegramId String?  @unique @map("telegram_id")
+  name       String?
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  invitations Invitation[]
+
+  @@map("users")
+}
+
+model Template {
+  id         String           @id @default(cuid())
+  /// Kod — React komponentiga moslashtiriladi (src/components/templates)
+  code       String           @unique
+  name       String
+  previewUrl String?          @map("preview_url")
+  category   TemplateCategory @default(ZAMONAVIY)
+  isActive   Boolean          @default(true) @map("is_active")
+  createdAt  DateTime         @default(now()) @map("created_at")
+
+  invitations Invitation[]
+
+  @@map("templates")
+}
+
+model Invitation {
+  id         String @id @default(cuid())
+  userId     String @map("user_id")
+  templateId String @map("template_id")
+
+  /// Havola: taklifnoma.uz/i/[slug]
+  slug String @unique
+
+  brideName String    @map("bride_name")
+  groomName String    @map("groom_name")
+  eventType EventType @default(TOY) @map("event_type")
+
+  /// Mehmonga ko'rsatiladigan qo'shimcha matn
+  greeting String?
+  /// Pul sovg'a uchun karta raqami (Bosqich 1)
+  cardNumber String? @map("card_number")
+  cardHolder String? @map("card_holder")
+  /// Fon musiqasi (R2/S3 havolasi)
+  musicUrl String? @map("music_url")
+
+  /// To'lov qilinganda true bo'ladi (Payme/Click webhook)
+  isActive Boolean @default(false) @map("is_active")
+  /// Ko'rishlar hisoblagichi (statistika dashboard uchun)
+  viewCount Int @default(0) @map("view_count")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  template Template  @relation(fields: [templateId], references: [id])
+  events   Event[]
+  photos   Photo[]
+  guests   Guest[]
+  payments Payment[]
+
+  @@index([userId])
+  @@map("invitations")
+}
+
+/// Bitta taklifnomada bir nechta tadbir bo'lishi mumkin (nikoh, fotosessiya, kechki to'y)
+model Event {
+  id           String   @id @default(cuid())
+  invitationId String   @map("invitation_id")
+  title        String
+  startsAt     DateTime @map("starts_at")
+  locationName String   @map("location_name")
+  address      String?
+  lat          Float?
+  lng          Float?
+  order        Int      @default(0)
+
+  /// Bosqich 3 (kelajak): Vendor jadvali qo'shilganda bu maydon relatsiyaga aylanadi.
+  vendorId String? @map("vendor_id")
+
+  invitation Invitation @relation(fields: [invitationId], references: [id], onDelete: Cascade)
+
+  @@index([invitationId])
+  @@map("events")
+}
+
+model Photo {
+  id           String   @id @default(cuid())
+  invitationId String   @map("invitation_id")
+  url          String
+  order        Int      @default(0)
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  invitation Invitation @relation(fields: [invitationId], references: [id], onDelete: Cascade)
+
+  @@index([invitationId])
+  @@map("photos")
+}
+
+model Guest {
+  id           String     @id @default(cuid())
+  invitationId String     @map("invitation_id")
+  name         String
+  phone        String?
+  side         GuestSide  @default(UMUMIY)
+  /// Guruh: oila, do'st, ish, qo'shni — erkin matn
+  groupName    String?    @map("group_name")
+  rsvpStatus   RsvpStatus @default(KUTILMOQDA) @map("rsvp_status")
+  /// O'zi bilan necha kishi keladi
+  guestCount   Int        @default(1) @map("guest_count")
+  note         String?
+  /// Telegram bot orqali javob bergan bo'lsa (Bosqich 2)
+  telegramId   String?    @map("telegram_id")
+  respondedAt  DateTime?  @map("responded_at")
+  createdAt    DateTime   @default(now()) @map("created_at")
+
+  invitation Invitation @relation(fields: [invitationId], references: [id], onDelete: Cascade)
+
+  @@index([invitationId])
+  @@map("guests")
+}
+
+model Payment {
+  id           String          @id @default(cuid())
+  invitationId String          @map("invitation_id")
+  amount       Int
+  provider     PaymentProvider
+  status       PaymentStatus   @default(KUTILMOQDA)
+  /// Payme/Click tomonidagi tranzaksiya identifikatori
+  externalId   String?         @map("external_id")
+  paidAt       DateTime?       @map("paid_at")
+  createdAt    DateTime        @default(now()) @map("created_at")
+
+  invitation Invitation @relation(fields: [invitationId], references: [id], onDelete: Cascade)
+
+  @@index([invitationId])
+  @@map("payments")
+}
+
+// Bosqich 3 (kelajak): Vendor va Booking jadvallari.
+// Hozir yaratilmaydi — Event.vendor_id nullable maydoni joy qoldirib turibdi,
+// keyinchalik migration bilan qo'shiladi.

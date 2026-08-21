@@ -59,6 +59,12 @@ suratlar, ikkita tadbir, mehmon javoblari va tilaklar bilan namuna yaratadi.
 So'ng <http://localhost:3000/i/namuna> ni oching. Buyruqni qayta ishga
 tushirsa, namuna yangilanadi.
 
+### Kirish usullari
+
+Asosiysi — **email va parol**: `/register` da hisob yaratiladi, `/login` da
+kiriladi. Parol bcrypt bilan hashlanadi (`bcryptjs`, 12 raund).
+Google va Telegram kalitlari qo'shilsa, ular ham login sahifasida paydo bo'ladi.
+
 ### Kalitlarsiz kirish (faqat lokal)
 
 Google/Telegram kalitlari hali yo'q bo'lsa, `.env` ga qo'shing:

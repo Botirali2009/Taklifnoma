@@ -61,6 +61,8 @@ model User {
   email         String?   @unique
   emailVerified DateTime? @map("email_verified")
   image         String?
+  /// Email + parol bilan kirish uchun (bcrypt hash)
+  passwordHash  String?   @map("password_hash")
   phone         String?   @unique
   telegramId    String?   @unique @map("telegram_id")
   telegramUsername String? @map("telegram_username")

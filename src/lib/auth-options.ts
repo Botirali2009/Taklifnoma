@@ -3,6 +3,8 @@ import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import { prisma } from "@/lib/prisma";
+import { verifyPassword } from "@/lib/password";
+import { normalizeEmail } from "@/lib/password";
 import { verifyTelegramAuth } from "@/lib/telegram-auth";
 import type { Role } from "@/generated/prisma/enums";
 
@@ -18,6 +20,36 @@ if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
     }),
   );
 }
+
+// Email + parol
+providers.push(
+  CredentialsProvider({
+    id: "password",
+    name: "Email va parol",
+    credentials: {
+      email: { label: "Email", type: "email" },
+      password: { label: "Parol", type: "password" },
+    },
+    async authorize(credentials) {
+      const email = normalizeEmail(credentials?.email ?? "");
+      const password = credentials?.password ?? "";
+      if (!email || !password) return null;
+
+      const user = await prisma.user.findUnique({ where: { email } });
+      if (!user?.passwordHash) return null;
+
+      const valid = await verifyPassword(password, user.passwordHash);
+      if (!valid) return null;
+
+      return {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        image: user.image,
+      };
+    },
+  }),
+);
 
 // Telegram Login Widget — widget qaytargan ma'lumot imzosi tekshiriladi
 providers.push(

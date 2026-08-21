@@ -47,6 +47,12 @@
 
 ## Ma'lum cheklovlar
 
+- `ALLOW_DEV_LOGIN=true` faqat lokal ishlab chiqish uchun. Production build'da
+  provider ro'yxatga qo'shilmaydi, lekin baribir bu o'zgaruvchini production
+  muhitiga yozmang.
+- Neon kabi "scale to zero" bazalar uzoq turgach uyquga ketadi — birinchi
+  so'rov sekin bo'ladi yoki bir marta xato berishi mumkin (sahifani yangilang).
+
 - Lokal fayl saqlash faqat dev uchun — production'da R2 shart.
 - Telegram bot webhook rejimida ishlaydi (polling emas), ya'ni domen
   HTTPS bo'lishi kerak.

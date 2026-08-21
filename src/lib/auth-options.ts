@@ -82,6 +82,49 @@ providers.push(
   }),
 );
 
+/**
+ * Dev login — faqat lokal ishlab chiqish uchun.
+ *
+ * Google/Telegram kalitlarisiz ham dashboard va admin panelni ko'rish uchun.
+ * Ikki shart bir vaqtda bajarilsagina yoqiladi:
+ *   NODE_ENV !== "production"  va  ALLOW_DEV_LOGIN=true
+ * Production build'da bu provider umuman ro'yxatga qo'shilmaydi.
+ */
+if (
+  process.env.NODE_ENV !== "production" &&
+  process.env.ALLOW_DEV_LOGIN === "true"
+) {
+  providers.push(
+    CredentialsProvider({
+      id: "dev",
+      name: "Dev login (lokal)",
+      credentials: {
+        name: { label: "Ism", type: "text" },
+        admin: { label: "Admin", type: "text" },
+      },
+      async authorize(credentials) {
+        const name = credentials?.name?.trim() || "Dev foydalanuvchi";
+        const wantsAdmin = credentials?.admin === "true";
+
+        // Har bir ism uchun alohida test hisobi
+        const email = `${name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}@dev.local`;
+
+        const user = await prisma.user.upsert({
+          where: { email },
+          update: { name, role: wantsAdmin ? "ADMIN" : "USER" },
+          create: { email, name, role: wantsAdmin ? "ADMIN" : "USER" },
+        });
+
+        return { id: user.id, name: user.name, email: user.email };
+      },
+    }),
+  );
+
+  console.warn(
+    "[auth] Dev login yoqilgan (ALLOW_DEV_LOGIN=true) — faqat lokal muhitda ishlating.",
+  );
+}
+
 export const authOptions: NextAuthOptions = {
   // Prisma 7 generatsiya qilgan client adapter tipidan farq qiladi — runtime bir xil
   adapter: PrismaAdapter(prisma as never),

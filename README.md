@@ -59,6 +59,19 @@ suratlar, ikkita tadbir, mehmon javoblari va tilaklar bilan namuna yaratadi.
 So'ng <http://localhost:3000/i/namuna> ni oching. Buyruqni qayta ishga
 tushirsa, namuna yangilanadi.
 
+### Kalitlarsiz kirish (faqat lokal)
+
+Google/Telegram kalitlari hali yo'q bo'lsa, `.env` ga qo'shing:
+
+```
+ALLOW_DEV_LOGIN="true"
+```
+
+`npm run dev` da `/login` sahifasida "Lokal test kirishi" formasi paydo bo'ladi —
+ism yozib (xohlasangiz "Admin huquqi bilan" belgilab) kirasiz va dashboard,
+sozlamalar hamda admin panelni ko'rasiz. Bu forma **production build'da umuman
+qo'shilmaydi** (`NODE_ENV=production` bo'lsa provider ro'yxatga kirmaydi).
+
 Birinchi adminni belgilash (bir marta, kirgandan keyin):
 
 ```sql
@@ -74,6 +87,7 @@ update users set role = 'ADMIN' where email = 'siz@example.com';
 | `NEXTAUTH_URL` | ha (prod) | Saytning to'liq manzili |
 | `APP_URL` | tavsiya | Server tomonda havola quriladi (QR, PDF, bot) |
 | `NEXT_PUBLIC_APP_URL` | tavsiya | Brauzer kodidagi havola (build vaqtida joylashadi) |
+| `ALLOW_DEV_LOGIN` | yo'q | Faqat lokal: kalitlarsiz kirish formasi |
 | `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` | yo'q | Bo'lmasa Google tugmasi ko'rinmaydi |
 | `TELEGRAM_BOT_TOKEN` | yo'q | Telegram login, bot va eslatmalar uchun |
 | `NEXT_PUBLIC_TELEGRAM_BOT_USERNAME` | yo'q | Login widget uchun bot nomi |

@@ -12,6 +12,8 @@ const globalForPrisma = globalThis as unknown as {
 function createPrismaClient() {
   const adapter = new PrismaPg({
     connectionString: process.env.DATABASE_URL,
+    // Neon kabi "scale to zero" bazalar uyquda bo'lsa uyg'onishga vaqt kerak
+    connectionTimeoutMillis: 20_000,
   });
 
   return new PrismaClient({

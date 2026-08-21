@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { DevSignInForm } from "@/components/auth/DevSignInForm";
 import { GoogleSignInButton } from "@/components/auth/GoogleSignInButton";
 import { TelegramLoginButton } from "@/components/auth/TelegramLoginButton";
 import { getCurrentUser } from "@/lib/session";
@@ -18,6 +19,9 @@ export default async function LoginPage({ searchParams }: Props) {
     process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET,
   );
   const botUsername = process.env.NEXT_PUBLIC_TELEGRAM_BOT_USERNAME;
+  const devLoginEnabled =
+    process.env.NODE_ENV !== "production" &&
+    process.env.ALLOW_DEV_LOGIN === "true";
 
   return (
     <main className="mx-auto flex min-h-[70vh] max-w-md flex-col justify-center px-6 py-16">
@@ -35,6 +39,8 @@ export default async function LoginPage({ searchParams }: Props) {
       )}
 
       <div className="mt-8 space-y-4">
+        {devLoginEnabled && <DevSignInForm callbackUrl={callbackUrl} />}
+
         {googleEnabled ? (
           <GoogleSignInButton callbackUrl={callbackUrl} />
         ) : (

@@ -50,8 +50,14 @@ npm install
 cp .env.example .env        # kamida DATABASE_URL va NEXTAUTH_SECRET
 npx prisma migrate deploy   # jadvallarni yaratadi
 npm run db:seed             # shablonlar katalogini bazaga yozadi
+npm run db:demo             # namuna taklifnoma (ixtiyoriy)
 npm run dev                 # http://localhost:3000
 ```
+
+`npm run db:demo` — kirishsiz ham to'ldirilgan taklifnomani ko'rish uchun:
+suratlar, ikkita tadbir, mehmon javoblari va tilaklar bilan namuna yaratadi.
+So'ng <http://localhost:3000/i/namuna> ni oching. Buyruqni qayta ishga
+tushirsa, namuna yangilanadi.
 
 Birinchi adminni belgilash (bir marta, kirgandan keyin):
 
@@ -85,6 +91,7 @@ update users set role = 'ADMIN' where email = 'siz@example.com';
 | `npm run typecheck` / `npm run lint` | TypeScript va ESLint tekshiruvi |
 | `npm run db:migrate` | Migration yaratish/qo'llash (interaktiv) |
 | `npm run db:seed` | Shablonlarni seed qilish |
+| `npm run db:demo` | Namuna taklifnoma yaratish (`/i/namuna`) |
 | `npm run db:studio` | Prisma Studio |
 | `./scripts/create-migration.sh <nom>` | Interaktiv bo'lmagan muhitda migration yaratish |
 

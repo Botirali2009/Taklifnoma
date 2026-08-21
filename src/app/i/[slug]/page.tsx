@@ -29,10 +29,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!invitation) return { title: "Taklifnoma topilmadi" };
 
   const title = `${invitation.brideName} & ${invitation.groomName} — taklifnoma`;
+  const description =
+    invitation.greeting?.split("\n")[0] ?? "Sizni tantanamizga taklif qilamiz.";
+
   return {
     title,
-    description: invitation.greeting ?? "Sizni tantanamizga taklif qilamiz.",
-    openGraph: { title },
+    description,
+    openGraph: {
+      title,
+      description,
+      type: "website",
+      locale: "uz_UZ",
+    },
+    twitter: { card: "summary_large_image", title, description },
   };
 }
 

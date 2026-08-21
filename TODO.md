@@ -45,6 +45,12 @@
 - **i18n**: interfeys faqat o'zbekcha (lotin). Rus/ingliz tili kerak bo'lsa
   matnlarni ajratib olish kerak.
 
+## Keyingi mantiqiy qadam
+
+Loyiha lokal darajada tugallangan. Endi eng foydali ish — **deploy**:
+Vercel + Neon + Cloudflare R2 (suratlar uchun majburiy) va domen. Domen
+bo'lgach Telegram login va bot ham ishlaydi.
+
 ## Ma'lum cheklovlar
 
 - `ALLOW_DEV_LOGIN=true` faqat lokal ishlab chiqish uchun. Production build'da

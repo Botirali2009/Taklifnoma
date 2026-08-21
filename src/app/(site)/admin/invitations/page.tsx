@@ -32,60 +32,60 @@ export default async function AdminInvitationsPage({ searchParams }: Props) {
   return (
     <div>
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h2 className="text-lg font-medium text-neutral-900">Taklifnomalar</h2>
+        <h2 className="text-lg font-medium text-ink">Taklifnomalar</h2>
         <AdminSearch basePath="/admin/invitations" placeholder="Ism yoki havola" />
       </div>
 
-      <div className="mt-6 overflow-x-auto rounded-2xl border border-neutral-200">
-        <table className="w-full text-left text-sm">
-          <thead className="bg-neutral-50 text-xs uppercase text-neutral-500">
+      <div className="mt-6 table-wrap">
+        <table className="table">
+          <thead >
             <tr>
-              <th className="px-4 py-3">Taklifnoma</th>
-              <th className="px-4 py-3">Egasi</th>
-              <th className="px-4 py-3">Turi</th>
-              <th className="px-4 py-3">RSVP</th>
-              <th className="px-4 py-3">Yaratilgan</th>
-              <th className="px-4 py-3" />
+              <th>Taklifnoma</th>
+              <th>Egasi</th>
+              <th>Turi</th>
+              <th>RSVP</th>
+              <th>Yaratilgan</th>
+              <th />
             </tr>
           </thead>
-          <tbody className="divide-y divide-neutral-100">
+          <tbody>
             {invitations.length === 0 ? (
               <tr>
-                <td colSpan={6} className="px-4 py-6 text-center text-neutral-500">
+                <td colSpan={6} className="px-4 py-8 text-center text-ink-faint">
                   Taklifnoma topilmadi.
                 </td>
               </tr>
             ) : (
               invitations.map((invitation) => (
                 <tr key={invitation.id}>
-                  <td className="px-4 py-3">
+                  <td>
                     <Link
                       href={`/i/${invitation.slug}`}
-                      className="font-medium text-neutral-900 hover:underline"
+                      className="font-medium text-ink hover:underline"
                     >
                       {invitation.brideName} &amp; {invitation.groomName}
                     </Link>
-                    <span className="block text-xs text-neutral-500">
+                    <span className="block text-xs text-ink-faint">
                       /i/{invitation.slug}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-neutral-600">
+                  <td className="text-ink-soft">
                     {invitation.user.name ??
                       invitation.user.email ??
                       (invitation.user.telegramUsername
                         ? `@${invitation.user.telegramUsername}`
                         : "—")}
                   </td>
-                  <td className="px-4 py-3 text-neutral-600">
+                  <td className="text-ink-soft">
                     {EVENT_TYPE_LABELS[invitation.eventType]}
                   </td>
-                  <td className="px-4 py-3 text-neutral-600">
+                  <td className="text-ink-soft">
                     {invitation._count.guests}
                   </td>
-                  <td className="px-4 py-3 text-neutral-500">
+                  <td className="text-ink-faint">
                     {formatDateTime(invitation.createdAt)}
                   </td>
-                  <td className="px-4 py-3 text-right">
+                  <td className="text-right">
                     <DeleteInvitationButton
                       invitationId={invitation.id}
                       label={`${invitation.brideName} & ${invitation.groomName}`}

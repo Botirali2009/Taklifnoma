@@ -34,16 +34,16 @@ export default async function SettingsPage({ params }: Props) {
   if (!invitation) notFound();
 
   return (
-    <main className="mx-auto max-w-2xl px-6 py-16">
+    <main className="mx-auto max-w-2xl px-5 py-12">
       <Link
         href={`/dashboard/${invitation.id}`}
-        className="text-sm text-neutral-500 hover:underline"
+        className="text-sm text-ink-faint transition hover:text-ink"
       >
         ← Boshqaruv paneli
       </Link>
 
-      <h1 className="mt-4 text-3xl font-semibold text-neutral-900">Sozlamalar</h1>
-      <p className="mt-1 text-neutral-600">
+      <h1 className="section-title mt-5">Sozlamalar</h1>
+      <p className="mt-2 text-ink-soft">
         Taklifnoma ma&apos;lumotlarini tahrirlang yoki o&apos;chiring.
       </p>
 

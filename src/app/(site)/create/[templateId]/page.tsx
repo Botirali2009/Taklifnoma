@@ -9,11 +9,9 @@ export default function CreateInvitationPage({ params }: Props) {
   if (!meta) notFound();
 
   return (
-    <main className="mx-auto max-w-2xl px-6 py-16">
-      <p className="text-sm text-neutral-500">Shablon: {meta.name}</p>
-      <h1 className="mt-1 text-3xl font-semibold text-neutral-900">
-        Taklifnoma yaratish
-      </h1>
+    <main className="mx-auto max-w-2xl px-5 py-14">
+      <p className="eyebrow">Shablon: {meta.name}</p>
+      <h1 className="section-title mt-3">Taklifnoma yaratish</h1>
 
       <CreateWizard templateCode={meta.code} />
     </main>

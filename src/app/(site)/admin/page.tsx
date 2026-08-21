@@ -80,12 +80,11 @@ export default async function AdminDashboardPage() {
     <div className="space-y-8">
       <section className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         {stats.map((stat) => (
-          <div
-            key={stat.label}
-            className="rounded-2xl border border-neutral-200 p-5"
-          >
-            <p className="text-3xl font-semibold text-neutral-900">{stat.value}</p>
-            <p className="mt-1 text-sm text-neutral-500">{stat.label}</p>
+          <div key={stat.label} className="card p-5">
+            <p className="font-display text-4xl font-semibold tabular-nums">
+              {stat.value}
+            </p>
+            <p className="mt-1 text-sm text-ink-faint">{stat.label}</p>
           </div>
         ))}
       </section>

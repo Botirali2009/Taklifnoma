@@ -27,53 +27,53 @@ export default async function AdminUsersPage({ searchParams }: Props) {
   return (
     <div>
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h2 className="text-lg font-medium text-neutral-900">Foydalanuvchilar</h2>
+        <h2 className="text-lg font-medium text-ink">Foydalanuvchilar</h2>
         <AdminSearch basePath="/admin/users" placeholder="Ism, email, username" />
       </div>
 
-      <div className="mt-6 overflow-x-auto rounded-2xl border border-neutral-200">
-        <table className="w-full text-left text-sm">
-          <thead className="bg-neutral-50 text-xs uppercase text-neutral-500">
+      <div className="mt-6 table-wrap">
+        <table className="table">
+          <thead >
             <tr>
-              <th className="px-4 py-3">Ism</th>
-              <th className="px-4 py-3">Kontakt</th>
-              <th className="px-4 py-3">Rol</th>
-              <th className="px-4 py-3">Taklifnomalar</th>
-              <th className="px-4 py-3">Qo&apos;shilgan</th>
+              <th>Ism</th>
+              <th>Kontakt</th>
+              <th>Rol</th>
+              <th>Taklifnomalar</th>
+              <th>Qo&apos;shilgan</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-neutral-100">
+          <tbody>
             {users.length === 0 ? (
               <tr>
-                <td colSpan={5} className="px-4 py-6 text-center text-neutral-500">
+                <td colSpan={5} className="px-4 py-8 text-center text-ink-faint">
                   Foydalanuvchi topilmadi.
                 </td>
               </tr>
             ) : (
               users.map((user) => (
                 <tr key={user.id}>
-                  <td className="px-4 py-3 font-medium text-neutral-900">
+                  <td className="font-medium">
                     {user.name ?? "—"}
                   </td>
-                  <td className="px-4 py-3 text-neutral-600">
+                  <td className="text-ink-soft">
                     {user.email ??
                       (user.telegramUsername ? `@${user.telegramUsername}` : "—")}
                   </td>
-                  <td className="px-4 py-3">
+                  <td>
                     <span
                       className={
                         user.role === "ADMIN"
-                          ? "rounded-full bg-neutral-900 px-2 py-1 text-xs text-white"
-                          : "rounded-full bg-neutral-100 px-2 py-1 text-xs text-neutral-600"
+                          ? "rounded-full bg-ink px-2 py-1 text-xs text-white"
+                          : "rounded-full bg-paper-sunk px-2 py-1 text-xs text-ink-soft"
                       }
                     >
                       {user.role === "ADMIN" ? "Admin" : "Foydalanuvchi"}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-neutral-600">
+                  <td className="text-ink-soft">
                     {user._count.invitations}
                   </td>
-                  <td className="px-4 py-3 text-neutral-500">
+                  <td className="text-ink-faint">
                     {formatDateTime(user.createdAt)}
                   </td>
                 </tr>

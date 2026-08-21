@@ -5,9 +5,6 @@ import { useState, useTransition } from "react";
 import { deleteTemplate, saveTemplate } from "@/app/actions/admin";
 import type { TemplateCategory } from "@/generated/prisma/enums";
 
-const INPUT =
-  "w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm outline-none focus:border-neutral-900";
-
 const CATEGORIES: Array<[TemplateCategory, string]> = [
   ["ZAMONAVIY", "Zamonaviy"],
   ["MILLIY", "Milliy"],
@@ -84,59 +81,59 @@ export function TemplatesManager({ templates, availableCodes }: Props) {
 
   return (
     <div className="mt-6 space-y-6">
-      <div className="overflow-x-auto rounded-2xl border border-neutral-200">
-        <table className="w-full text-left text-sm">
-          <thead className="bg-neutral-50 text-xs uppercase text-neutral-500">
+      <div className="table-wrap">
+        <table className="table">
+          <thead >
             <tr>
-              <th className="px-4 py-3">Nomi</th>
-              <th className="px-4 py-3">Kod</th>
-              <th className="px-4 py-3">Kategoriya</th>
-              <th className="px-4 py-3">Holati</th>
-              <th className="px-4 py-3">Ishlatilgan</th>
-              <th className="px-4 py-3" />
+              <th>Nomi</th>
+              <th>Kod</th>
+              <th>Kategoriya</th>
+              <th>Holati</th>
+              <th>Ishlatilgan</th>
+              <th />
             </tr>
           </thead>
-          <tbody className="divide-y divide-neutral-100">
+          <tbody>
             {templates.length === 0 ? (
               <tr>
-                <td colSpan={6} className="px-4 py-6 text-center text-neutral-500">
+                <td colSpan={6} className="px-4 py-8 text-center text-ink-faint">
                   Shablon yo&apos;q.
                 </td>
               </tr>
             ) : (
               templates.map((template) => (
                 <tr key={template.id}>
-                  <td className="px-4 py-3 font-medium text-neutral-900">
+                  <td className="font-medium">
                     {template.name}
                   </td>
-                  <td className="px-4 py-3">
-                    <code className="text-neutral-600">{template.code}</code>
+                  <td>
+                    <code className="text-ink-soft">{template.code}</code>
                     {!availableCodes.includes(template.code) && (
                       <span className="ml-2 rounded-full bg-amber-50 px-2 py-1 text-xs text-amber-700">
                         komponent yo&apos;q
                       </span>
                     )}
                   </td>
-                  <td className="px-4 py-3 text-neutral-600">
+                  <td className="text-ink-soft">
                     {CATEGORIES.find(([value]) => value === template.category)?.[1]}
                   </td>
-                  <td className="px-4 py-3">
+                  <td>
                     <span
                       className={
                         template.isActive
-                          ? "rounded-full bg-green-50 px-2 py-1 text-xs text-green-700"
-                          : "rounded-full bg-neutral-100 px-2 py-1 text-xs text-neutral-600"
+                          ? "rounded-full bg-emerald-50 px-2 py-1 text-xs text-emerald-800"
+                          : "rounded-full bg-paper-sunk px-2 py-1 text-xs text-ink-soft"
                       }
                     >
                       {template.isActive ? "Faol" : "Yashirin"}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-neutral-600">{template.usageCount}</td>
-                  <td className="px-4 py-3 text-right">
+                  <td className="text-ink-soft">{template.usageCount}</td>
+                  <td className="text-right">
                     <button
                       type="button"
                       onClick={() => setDraft({ ...template })}
-                      className="text-sm text-neutral-700 hover:underline"
+                      className="text-sm text-ink-soft hover:underline"
                     >
                       Tahrirlash
                     </button>
@@ -144,7 +141,7 @@ export function TemplatesManager({ templates, availableCodes }: Props) {
                       type="button"
                       onClick={() => remove(template)}
                       disabled={pending}
-                      className="ml-4 text-sm text-red-600 hover:underline disabled:opacity-50"
+                      className="ml-4 text-sm text-anor hover:underline disabled:opacity-50"
                     >
                       O&apos;chirish
                     </button>
@@ -157,20 +154,20 @@ export function TemplatesManager({ templates, availableCodes }: Props) {
       </div>
 
       {error && (
-        <p className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">{error}</p>
+        <p className="rounded-lg bg-anor-soft px-4 py-3 text-sm text-anor">{error}</p>
       )}
 
       {draft ? (
-        <div className="space-y-4 rounded-2xl border border-neutral-200 p-6">
-          <h3 className="font-medium text-neutral-900">
+        <div className="space-y-4 card-pad">
+          <h3 className="font-medium text-ink">
             {draft.id ? "Shablonni tahrirlash" : "Yangi shablon"}
           </h3>
 
           <div className="grid gap-4 sm:grid-cols-2">
-            <label className="block text-sm text-neutral-700">
+            <label className="block text-sm text-ink-soft">
               Nomi
               <input
-                className={`mt-1 ${INPUT}`}
+                className="input"
                 value={draft.name}
                 onChange={(event) =>
                   setDraft({ ...draft, name: event.target.value })
@@ -178,10 +175,10 @@ export function TemplatesManager({ templates, availableCodes }: Props) {
               />
             </label>
 
-            <label className="block text-sm text-neutral-700">
+            <label className="block text-sm text-ink-soft">
               Kod (komponent nomi)
               <input
-                className={`mt-1 ${INPUT}`}
+                className="input"
                 value={draft.code}
                 list="template-codes"
                 onChange={(event) =>
@@ -195,10 +192,10 @@ export function TemplatesManager({ templates, availableCodes }: Props) {
               </datalist>
             </label>
 
-            <label className="block text-sm text-neutral-700">
+            <label className="block text-sm text-ink-soft">
               Kategoriya
               <select
-                className={`mt-1 ${INPUT}`}
+                className="input"
                 value={draft.category}
                 onChange={(event) =>
                   setDraft({
@@ -215,10 +212,10 @@ export function TemplatesManager({ templates, availableCodes }: Props) {
               </select>
             </label>
 
-            <label className="block text-sm text-neutral-700">
+            <label className="block text-sm text-ink-soft">
               Preview rasm havolasi
               <input
-                className={`mt-1 ${INPUT}`}
+                className="input"
                 value={draft.previewUrl}
                 onChange={(event) =>
                   setDraft({ ...draft, previewUrl: event.target.value })
@@ -228,7 +225,7 @@ export function TemplatesManager({ templates, availableCodes }: Props) {
             </label>
           </div>
 
-          <label className="flex items-center gap-2 text-sm text-neutral-700">
+          <label className="flex items-center gap-2 text-sm text-ink-soft">
             <input
               type="checkbox"
               checked={draft.isActive}
@@ -244,14 +241,14 @@ export function TemplatesManager({ templates, availableCodes }: Props) {
               type="button"
               onClick={save}
               disabled={pending}
-              className="rounded-lg bg-neutral-900 px-5 py-2 text-sm font-medium text-white hover:bg-neutral-700 disabled:opacity-50"
+              className="btn-primary btn-sm"
             >
               {pending ? "Saqlanmoqda..." : "Saqlash"}
             </button>
             <button
               type="button"
               onClick={() => setDraft(null)}
-              className="rounded-lg border border-neutral-300 px-5 py-2 text-sm text-neutral-700 hover:bg-neutral-50"
+              className="btn-ghost btn-sm"
             >
               Bekor qilish
             </button>
@@ -261,7 +258,7 @@ export function TemplatesManager({ templates, availableCodes }: Props) {
         <button
           type="button"
           onClick={() => setDraft({ ...EMPTY_DRAFT })}
-          className="rounded-lg bg-neutral-900 px-5 py-2 text-sm font-medium text-white hover:bg-neutral-700"
+          className="btn-brass btn-sm"
         >
           + Shablon qo&apos;shish
         </button>

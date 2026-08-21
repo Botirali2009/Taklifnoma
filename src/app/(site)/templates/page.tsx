@@ -40,64 +40,67 @@ export default async function TemplatesPage() {
     });
 
   return (
-    <main className="mx-auto max-w-4xl px-6 py-16">
-      <h1 className="text-3xl font-semibold text-neutral-900">Shablonlar</h1>
-      <p className="mt-2 text-neutral-600">
+    <main className="mx-auto max-w-5xl px-5 py-16">
+      <p className="eyebrow">Katalog</p>
+      <h1 className="section-title mt-3">Shablonlar</h1>
+      <p className="mt-3 max-w-prose text-ink-soft">
         Yoqqan shablonni tanlang — ma&apos;lumotlaringizni keyin kiritasiz.
+        Har birini avval namunada ko&apos;rib olsangiz bo&apos;ladi.
       </p>
 
       {templates.length === 0 ? (
-        <p className="mt-10 rounded-2xl border border-dashed border-neutral-300 p-10 text-center text-neutral-500">
+        <p className="mt-10 rounded-card border border-dashed border-line-strong p-10 text-center text-ink-faint">
           Hozircha shablon yo&apos;q. Admin panelda qo&apos;shing yoki{" "}
           <code>npm run db:seed</code> ni ishga tushiring.
         </p>
       ) : (
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {templates.map((template) => (
             <article
               key={template.code}
-              className="overflow-hidden rounded-2xl border border-neutral-200"
+              className="card group overflow-hidden transition hover:shadow-lift"
             >
               {template.previewUrl ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={template.previewUrl}
                   alt={template.name}
-                  className="h-44 w-full object-cover"
+                  className="h-48 w-full object-cover"
                 />
               ) : (
                 <div
-                  className="flex h-44 items-center justify-center text-2xl text-white"
+                  className="flex h-48 items-center justify-center"
                   style={{ backgroundColor: template.accent }}
                 >
-                  {template.name}
+                  <span className="rounded-lg bg-white/90 px-5 py-2.5 font-display text-xl text-ink">
+                    {template.name}
+                  </span>
                 </div>
               )}
 
-              <div className="p-5">
-                <div className="flex items-center justify-between">
-                  <h2 className="font-medium text-neutral-900">{template.name}</h2>
-                  <span className="rounded-full bg-neutral-100 px-2 py-1 text-xs text-neutral-600">
+              <div className="p-6">
+                <div className="flex items-start justify-between gap-3">
+                  <h2 className="font-display text-xl font-semibold">
+                    {template.name}
+                  </h2>
+                  <span className="pill-neutral shrink-0">
                     {CATEGORY_LABELS[template.category] ?? template.category}
                   </span>
                 </div>
 
-                <p className="mt-2 text-sm text-neutral-600">
+                <p className="mt-2 text-sm leading-relaxed text-ink-soft">
                   {template.description}
                 </p>
 
-                <div className="mt-4 flex gap-2">
-                  <Link
-                    href={`/create/${template.code}`}
-                    className="rounded-lg bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-700"
-                  >
+                <div className="mt-5 flex gap-2">
+                  <Link href={`/create/${template.code}`} className="btn-primary btn-sm">
                     Tanlash
                   </Link>
                   <Link
                     href={`/templates/${template.code}/preview`}
-                    className="rounded-lg border border-neutral-300 px-4 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
+                    className="btn-ghost btn-sm"
                   >
-                    Ko&apos;rish
+                    Namuna
                   </Link>
                 </div>
               </div>

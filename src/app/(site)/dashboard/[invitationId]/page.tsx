@@ -84,17 +84,20 @@ export default async function DashboardPage({ params, searchParams }: Props) {
   ];
 
   return (
-    <main className="mx-auto max-w-4xl px-6 py-16">
-      <Link href="/my-invitations" className="text-sm text-neutral-500 hover:underline">
+    <main className="mx-auto max-w-5xl px-5 py-12">
+      <Link
+        href="/my-invitations"
+        className="text-sm text-ink-faint transition hover:text-ink"
+      >
         ← Mening taklifnomalarim
       </Link>
 
-      <div className="mt-4 flex flex-wrap items-start justify-between gap-4">
+      <div className="mt-5 flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-semibold text-neutral-900">
+          <h1 className="font-display text-4xl font-semibold tracking-tight">
             {invitation.brideName} &amp; {invitation.groomName}
           </h1>
-          <p className="mt-1 text-neutral-600">
+          <p className="mt-2 text-ink-soft">
             {EVENT_TYPE_LABELS[invitation.eventType]}
             {invitation.events[0] &&
               ` · ${formatDateTime(invitation.events[0].startsAt)}`}
@@ -103,48 +106,45 @@ export default async function DashboardPage({ params, searchParams }: Props) {
 
         <Link
           href={`/dashboard/${invitation.id}/settings`}
-          className="rounded-lg border border-neutral-300 px-4 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
+          className="btn-ghost btn-sm"
         >
           Sozlamalar
         </Link>
       </div>
 
       {/* Havola va ulashish */}
-      <section className="mt-8 rounded-2xl border border-neutral-200 p-6">
-        <h2 className="font-medium text-neutral-900">Taklifnoma havolasi</h2>
+      <section className="card-pad mt-8">
+        <h2 className="text-base font-semibold">Taklifnoma havolasi</h2>
+        <p className="mt-1 text-sm text-ink-soft">
+          Shu havolani mehmonlarga yuboring yoki QR kodini chop eting.
+        </p>
 
-        <div className="mt-3 flex flex-wrap items-center gap-3">
-          <code className="rounded-lg bg-neutral-100 px-3 py-2 text-sm">
+        <div className="mt-4 flex flex-wrap items-center gap-2">
+          <code className="rounded-lg bg-paper-sunk px-3.5 py-2.5 font-mono text-[13px] text-ink-soft">
             {publicUrl}
           </code>
-          <CopyButton
-            value={publicUrl}
-            className="rounded-lg border border-neutral-300 px-4 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
-          />
-          <Link
-            href={`/i/${invitation.slug}`}
-            className="rounded-lg border border-neutral-300 px-4 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
-          >
+          <CopyButton value={publicUrl} className="btn-ghost btn-sm" />
+          <Link href={`/i/${invitation.slug}`} className="btn-ghost btn-sm">
             Ochish
           </Link>
         </div>
 
-        <div className="mt-4 flex flex-wrap gap-2">
+        <div className="mt-3 flex flex-wrap gap-2">
           <a
             href={`/api/invitations/${invitation.id}/qr`}
-            className="rounded-lg border border-neutral-300 px-4 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
+            className="btn-ghost btn-sm"
           >
-            QR kodni yuklab olish (PNG)
+            QR kod (PNG)
           </a>
           <a
             href={`/api/invitations/${invitation.id}/pdf`}
-            className="rounded-lg border border-neutral-300 px-4 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
+            className="btn-ghost btn-sm"
           >
             Chop etish uchun PDF
           </a>
         </div>
 
-        <div className="mt-4">
+        <div className="mt-5 border-t border-line pt-5">
           <ShareButtons
             url={publicUrl}
             text={`${invitation.brideName} va ${invitation.groomName} to'yiga taklifnoma`}
@@ -153,23 +153,24 @@ export default async function DashboardPage({ params, searchParams }: Props) {
       </section>
 
       {/* Statistika */}
-      <section className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+      <section className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
         {stats.map((stat) => (
-          <div
-            key={stat.label}
-            className="rounded-2xl border border-neutral-200 p-4 text-center"
-          >
-            <p className="text-2xl font-semibold text-neutral-900">{stat.value}</p>
-            <p className="mt-1 text-xs text-neutral-500">{stat.label}</p>
+          <div key={stat.label} className="card px-4 py-5 text-center">
+            <p className="font-display text-3xl font-semibold tabular-nums">
+              {stat.value}
+            </p>
+            <p className="mt-1 text-[11px] uppercase tracking-wide text-ink-faint">
+              {stat.label}
+            </p>
           </div>
         ))}
       </section>
 
       {/* Mehmonlar */}
-      <section className="mt-6 rounded-2xl border border-neutral-200 p-6">
+      <section className="card-pad mt-5">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <h2 className="font-medium text-neutral-900">Mehmonlar</h2>
-          <p className="text-sm text-neutral-500">
+          <h2 className="text-base font-semibold">Mehmonlar</h2>
+          <p className="text-sm text-ink-faint">
             {guests.length} ta yozuv ko&apos;rsatilmoqda
           </p>
         </div>
@@ -184,55 +185,53 @@ export default async function DashboardPage({ params, searchParams }: Props) {
         </div>
 
         {guests.length === 0 ? (
-          <p className="mt-6 text-sm text-neutral-500">
+          <p className="mt-6 rounded-lg border border-dashed border-line-strong px-4 py-8 text-center text-sm text-ink-faint">
             Mos yozuv topilmadi. Havolani mehmonlarga yuboring yoki filtrni
             o&apos;zgartiring.
           </p>
         ) : (
-          <div className="mt-4 overflow-x-auto">
-            <table className="w-full text-left text-sm">
-              <thead className="text-xs uppercase text-neutral-500">
+          <div className="table-wrap mt-4">
+            <table className="table">
+              <thead>
                 <tr>
-                  <th className="py-2 pr-4">Ism</th>
-                  <th className="py-2 pr-4">Tomon</th>
-                  <th className="py-2 pr-4">Javob</th>
-                  <th className="py-2 pr-4">Kishi</th>
-                  <th className="py-2 pr-4">Telefon</th>
-                  <th className="py-2">Vaqt</th>
+                  <th>Ism</th>
+                  <th>Tomon</th>
+                  <th>Javob</th>
+                  <th>Kishi</th>
+                  <th>Telefon</th>
+                  <th>Vaqt</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-neutral-100">
+              <tbody>
                 {guests.map((guest) => (
                   <tr key={guest.id}>
-                    <td className="py-3 pr-4 font-medium text-neutral-900">
+                    <td className="font-medium">
                       {guest.name}
                       {guest.note && (
-                        <span className="block text-xs font-normal text-neutral-500">
+                        <span className="mt-0.5 block text-xs font-normal text-ink-faint">
                           {guest.note}
                         </span>
                       )}
                     </td>
-                    <td className="py-3 pr-4 text-neutral-600">
+                    <td className="text-ink-soft">
                       {GUEST_SIDE_LABELS[guest.side]}
                     </td>
-                    <td className="py-3 pr-4">
+                    <td>
                       <span
                         className={
                           guest.rsvpStatus === "KELADI"
-                            ? "rounded-full bg-green-50 px-2 py-1 text-xs text-green-700"
+                            ? "pill-good"
                             : guest.rsvpStatus === "KELMAYDI"
-                              ? "rounded-full bg-red-50 px-2 py-1 text-xs text-red-700"
-                              : "rounded-full bg-neutral-100 px-2 py-1 text-xs text-neutral-600"
+                              ? "pill-bad"
+                              : "pill-wait"
                         }
                       >
                         {RSVP_STATUS_LABELS[guest.rsvpStatus]}
                       </span>
                     </td>
-                    <td className="py-3 pr-4 text-neutral-600">{guest.guestCount}</td>
-                    <td className="py-3 pr-4 text-neutral-600">
-                      {guest.phone ?? "—"}
-                    </td>
-                    <td className="py-3 text-neutral-500">
+                    <td className="tabular-nums text-ink-soft">{guest.guestCount}</td>
+                    <td className="text-ink-soft">{guest.phone ?? "—"}</td>
+                    <td className="whitespace-nowrap text-ink-faint">
                       {guest.respondedAt ? formatDateTime(guest.respondedAt) : "—"}
                     </td>
                   </tr>

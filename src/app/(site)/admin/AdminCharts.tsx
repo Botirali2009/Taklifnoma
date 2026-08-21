@@ -16,8 +16,8 @@ import {
 /** Kategorial ranglar — validatsiyadan o'tgan (blue, orange) */
 const SERIES_1 = "#2a78d6";
 const SERIES_2 = "#eb6834";
-const GRID = "#e7e5e4";
-const TEXT = "#52514e";
+const GRID = "#e6decf";
+const TEXT = "#5f574a";
 
 export type TrendPoint = {
   date: string;
@@ -35,7 +35,7 @@ const AXIS = { stroke: GRID, tick: { fill: TEXT, fontSize: 12 } };
 const TOOLTIP_STYLE = {
   contentStyle: {
     borderRadius: 12,
-    border: "1px solid #e7e5e4",
+    border: "1px solid #e6decf",
     fontSize: 13,
   },
 };
@@ -88,7 +88,7 @@ export function EventTypeChart({ data }: { data: EventTypePoint[] }) {
           <CartesianGrid stroke={GRID} vertical={false} />
           <XAxis dataKey="label" {...AXIS} tickMargin={8} />
           <YAxis allowDecimals={false} {...AXIS} width={40} />
-          <Tooltip {...TOOLTIP_STYLE} cursor={{ fill: "#f5f5f4" }} />
+          <Tooltip {...TOOLTIP_STYLE} cursor={{ fill: "#f2ece1" }} />
           <Bar
             dataKey="count"
             name="Taklifnomalar"

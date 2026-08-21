@@ -17,15 +17,16 @@ export default async function AdminLayout({
   await requireAdmin();
 
   return (
-    <div className="mx-auto max-w-5xl px-6 py-12">
-      <h1 className="text-2xl font-semibold text-neutral-900">Admin panel</h1>
+    <div className="mx-auto max-w-5xl px-5 py-12">
+      <p className="eyebrow">Platforma boshqaruvi</p>
+      <h1 className="section-title mt-3">Admin panel</h1>
 
-      <nav className="mt-4 flex flex-wrap gap-2 border-b border-neutral-200 pb-4">
+      <nav className="mt-6 flex flex-wrap gap-1 border-b border-line pb-4">
         {NAV.map(([href, label]) => (
           <Link
             key={href}
             href={href}
-            className="rounded-lg px-3 py-2 text-sm text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900"
+            className="rounded-lg px-3.5 py-2 text-sm font-medium text-ink-soft transition hover:bg-paper-sunk hover:text-ink"
           >
             {label}
           </Link>

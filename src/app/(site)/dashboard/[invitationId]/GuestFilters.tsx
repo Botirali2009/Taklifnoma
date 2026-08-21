@@ -26,7 +26,7 @@ const STATUS_OPTIONS: Array<[string, string]> = [
 ];
 
 const CONTROL =
-  "rounded-lg border border-neutral-300 px-3 py-2 text-sm outline-none focus:border-neutral-900";
+  "rounded-lg border border-line-strong bg-paper-raised px-3 py-2 text-sm text-ink outline-none transition focus:border-brass focus:ring-2 focus:ring-brass-soft";
 
 export function GuestFilters({ invitationId, side, status, query }: Props) {
   const router = useRouter();
@@ -85,7 +85,7 @@ export function GuestFilters({ invitationId, side, status, query }: Props) {
 
       <button
         type="submit"
-        className="rounded-lg bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-700"
+        className="btn-primary btn-sm"
       >
         Qidirish
       </button>

@@ -2,19 +2,159 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-paper text-ink antialiased;
+    font-feature-settings: "cv11", "ss01";
+  }
+
+  ::selection {
+    @apply bg-brass-soft text-ink;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  /* Klaviatura bilan yurganda fokus ko'rinib tursin */
+  :focus-visible {
+    @apply outline-none ring-2 ring-brass ring-offset-2 ring-offset-paper;
+  }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+@layer components {
+  /* Tugmalar */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-2.5
+      text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .btn-primary {
+    @apply btn bg-ink text-paper hover:bg-ink-soft;
+  }
+
+  .btn-brass {
+    @apply btn bg-brass text-white hover:bg-brass-deep;
+  }
+
+  .btn-ghost {
+    @apply btn border border-line-strong bg-paper-raised text-ink-soft hover:border-ink-faint hover:text-ink;
+  }
+
+  .btn-danger {
+    @apply btn border border-anor/25 text-anor hover:bg-anor-soft;
+  }
+
+  .btn-sm {
+    @apply px-3.5 py-2 text-[13px];
+  }
+
+  /* Kartalar va bo'limlar */
+  .card {
+    @apply rounded-card border border-line bg-paper-raised shadow-card;
+  }
+
+  .card-pad {
+    @apply card p-6;
+  }
+
+  .section-title {
+    @apply font-display text-3xl font-semibold tracking-tight;
+  }
+
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.18em] text-brass;
+  }
+
+  .muted {
+    @apply text-ink-soft;
+  }
+
+  /* Forma elementlari */
+  .label {
+    @apply block text-sm font-medium text-ink-soft;
+  }
+
+  .input {
+    @apply mt-1.5 w-full rounded-lg border border-line-strong bg-paper-raised px-3.5 py-2.5
+      text-sm text-ink outline-none transition placeholder:text-ink-faint
+      focus:border-brass focus:ring-2 focus:ring-brass-soft;
+  }
+
+  .field-hint {
+    @apply mt-1.5 text-xs text-ink-faint;
+  }
+
+  /* Holat belgilari */
+  .pill {
+    @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium;
+  }
+
+  .pill-neutral {
+    @apply pill bg-paper-sunk text-ink-soft;
+  }
+
+  .pill-good {
+    @apply pill bg-emerald-50 text-emerald-800;
+  }
+
+  .pill-bad {
+    @apply pill bg-anor-soft text-anor;
+  }
+
+  .pill-wait {
+    @apply pill bg-amber-50 text-amber-800;
+  }
+
+  /* Jadval */
+  .table-wrap {
+    @apply overflow-x-auto rounded-card border border-line bg-paper-raised;
+  }
+
+  .table {
+    @apply w-full text-left text-sm;
+  }
+
+  .table thead {
+    @apply bg-paper-sunk text-[11px] uppercase tracking-wider text-ink-faint;
+  }
+
+  .table th {
+    @apply px-4 py-3 font-semibold;
+  }
+
+  .table td {
+    @apply px-4 py-3.5 align-top;
+  }
+
+  .table tbody tr + tr {
+    @apply border-t border-line;
+  }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  /* Nozik naqsh — sarlavha bo'limlari uchun */
+  .ornament::before,
+  .ornament::after {
+    content: "";
+    @apply inline-block h-px w-8 align-middle bg-line-strong;
+  }
+
+  .ornament::before {
+    @apply mr-3;
+  }
+
+  .ornament::after {
+    @apply ml-3;
   }
 }

@@ -22,11 +22,11 @@ export function AdminChartsSection({ trend, eventTypes }: Props) {
 
   return (
     <div className="space-y-6">
-      <section className="rounded-2xl border border-neutral-200 p-6">
+      <section className="card-pad">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
-            <h2 className="font-medium text-neutral-900">So&apos;nggi 30 kun</h2>
-            <p className="mt-1 text-sm text-neutral-500">
+            <h2 className="text-base font-semibold">So&apos;nggi 30 kun</h2>
+            <p className="mt-1 text-sm text-ink-faint">
               Ro&apos;yxatdan o&apos;tish va taklifnoma yaratish tendensiyasi
             </p>
           </div>
@@ -34,7 +34,7 @@ export function AdminChartsSection({ trend, eventTypes }: Props) {
           <button
             type="button"
             onClick={() => setShowTable((current) => !current)}
-            className="rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50"
+            className="btn-ghost btn-sm"
           >
             {showTable ? "Grafik" : "Jadval"}
           </button>
@@ -43,20 +43,20 @@ export function AdminChartsSection({ trend, eventTypes }: Props) {
         <div className="mt-6">
           {showTable ? (
             <div className="max-h-72 overflow-auto">
-              <table className="w-full text-left text-sm">
-                <thead className="text-xs uppercase text-neutral-500">
+              <table className="table">
+                <thead>
                   <tr>
-                    <th className="py-2 pr-4">Sana</th>
-                    <th className="py-2 pr-4">Ro&apos;yxatdan o&apos;tganlar</th>
-                    <th className="py-2">Taklifnomalar</th>
+                    <th>Sana</th>
+                    <th>Ro&apos;yxatdan o&apos;tganlar</th>
+                    <th>Taklifnomalar</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-neutral-100">
+                <tbody>
                   {trend.map((point) => (
                     <tr key={point.date}>
-                      <td className="py-2 pr-4 text-neutral-600">{point.date}</td>
-                      <td className="py-2 pr-4 text-neutral-900">{point.users}</td>
-                      <td className="py-2 text-neutral-900">{point.invitations}</td>
+                      <td className="text-ink-soft">{point.date}</td>
+                      <td>{point.users}</td>
+                      <td>{point.invitations}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -68,9 +68,9 @@ export function AdminChartsSection({ trend, eventTypes }: Props) {
         </div>
       </section>
 
-      <section className="rounded-2xl border border-neutral-200 p-6">
-        <h2 className="font-medium text-neutral-900">Tadbir turlari bo&apos;yicha</h2>
-        <p className="mt-1 text-sm text-neutral-500">
+      <section className="card-pad">
+        <h2 className="text-base font-semibold">Tadbir turlari bo&apos;yicha</h2>
+        <p className="mt-1 text-sm text-ink-faint">
           Barcha taklifnomalar taqsimoti
         </p>
 

@@ -22,7 +22,7 @@ export function ShareButtons({ url, text }: Props) {
   return (
     <div className="flex flex-wrap gap-2">
       <a
-        className="rounded-lg bg-sky-500 px-4 py-2 text-sm font-medium text-white hover:bg-sky-600"
+        className="btn btn-sm bg-[#2AABEE] text-white hover:bg-[#1e97d4]"
         href={`https://t.me/share/url?url=${encodedUrl}&text=${encodedText}`}
         target="_blank"
         rel="noreferrer"
@@ -30,7 +30,7 @@ export function ShareButtons({ url, text }: Props) {
         Telegram
       </a>
       <a
-        className="rounded-lg bg-green-500 px-4 py-2 text-sm font-medium text-white hover:bg-green-600"
+        className="btn btn-sm bg-[#25D366] text-white hover:bg-[#1eb85a]"
         href={`https://wa.me/?text=${encodedText}%20${encodedUrl}`}
         target="_blank"
         rel="noreferrer"
@@ -40,7 +40,7 @@ export function ShareButtons({ url, text }: Props) {
       <button
         type="button"
         onClick={handleNativeShare}
-        className="rounded-lg border border-neutral-300 px-4 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100"
+        className="btn-ghost btn-sm"
       >
         Ulashish
       </button>

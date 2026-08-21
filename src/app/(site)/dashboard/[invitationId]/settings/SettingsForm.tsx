@@ -11,8 +11,7 @@ import {
 } from "@/app/actions/invitation";
 import type { EventType } from "@/generated/prisma/enums";
 
-const INPUT =
-  "mt-1 w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm outline-none focus:border-neutral-900";
+const INPUT = "input";
 
 type EventForm = {
   id?: string;
@@ -187,10 +186,10 @@ export function SettingsForm({ invitation }: { invitation: InvitationForm }) {
     <div className="mt-10 space-y-10">
       {/* Asosiy ma'lumot */}
       <section className="space-y-4">
-        <h2 className="text-lg font-medium text-neutral-900">Asosiy ma&apos;lumot</h2>
+        <h2 className="text-lg font-medium text-ink">Asosiy ma&apos;lumot</h2>
 
         <div className="grid gap-4 sm:grid-cols-2">
-          <label className="block text-sm text-neutral-700">
+          <label className="label">
             Kelin ismi
             <input
               className={INPUT}
@@ -199,7 +198,7 @@ export function SettingsForm({ invitation }: { invitation: InvitationForm }) {
             />
           </label>
 
-          <label className="block text-sm text-neutral-700">
+          <label className="label">
             Kuyov ismi
             <input
               className={INPUT}
@@ -209,7 +208,7 @@ export function SettingsForm({ invitation }: { invitation: InvitationForm }) {
           </label>
         </div>
 
-        <label className="block text-sm text-neutral-700">
+        <label className="label">
           Tadbir turi
           <select
             className={INPUT}
@@ -225,7 +224,7 @@ export function SettingsForm({ invitation }: { invitation: InvitationForm }) {
           </select>
         </label>
 
-        <label className="block text-sm text-neutral-700">
+        <label className="label">
           Mehmonlarga murojaat
           <textarea
             className={INPUT}
@@ -236,7 +235,7 @@ export function SettingsForm({ invitation }: { invitation: InvitationForm }) {
         </label>
 
         <div className="grid gap-4 sm:grid-cols-2">
-          <label className="block text-sm text-neutral-700">
+          <label className="label">
             Karta raqami
             <input
               className={INPUT}
@@ -245,7 +244,7 @@ export function SettingsForm({ invitation }: { invitation: InvitationForm }) {
             />
           </label>
 
-          <label className="block text-sm text-neutral-700">
+          <label className="label">
             Karta egasi
             <input
               className={INPUT}
@@ -259,7 +258,7 @@ export function SettingsForm({ invitation }: { invitation: InvitationForm }) {
       {/* Tadbirlar */}
       <section className="space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-lg font-medium text-neutral-900">Tadbirlar</h2>
+          <h2 className="text-lg font-medium text-ink">Tadbirlar</h2>
 
           <button
             type="button"
@@ -280,7 +279,7 @@ export function SettingsForm({ invitation }: { invitation: InvitationForm }) {
                 ],
               }))
             }
-            className="rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50"
+            className="rounded-lg border border-line-strong px-3 py-2 text-sm text-ink-soft hover:bg-paper-sunk"
           >
             + Tadbir qo&apos;shish
           </button>
@@ -289,10 +288,10 @@ export function SettingsForm({ invitation }: { invitation: InvitationForm }) {
         {form.events.map((event, index) => (
           <div
             key={event.id ?? `new-${index}`}
-            className="space-y-3 rounded-2xl border border-neutral-200 p-4"
+            className="space-y-3 rounded-card border border-line p-4"
           >
             <div className="flex items-center justify-between">
-              <p className="text-sm font-medium text-neutral-800">
+              <p className="text-sm font-medium text-ink">
                 {index + 1}-tadbir
               </p>
 
@@ -305,14 +304,14 @@ export function SettingsForm({ invitation }: { invitation: InvitationForm }) {
                       events: current.events.filter((_, i) => i !== index),
                     }))
                   }
-                  className="text-sm text-red-600 hover:underline"
+                  className="text-sm text-anor hover:underline"
                 >
                   O&apos;chirish
                 </button>
               )}
             </div>
 
-            <label className="block text-sm text-neutral-700">
+            <label className="label">
               Nomi
               <input
                 className={INPUT}
@@ -322,7 +321,7 @@ export function SettingsForm({ invitation }: { invitation: InvitationForm }) {
             </label>
 
             <div className="grid gap-4 sm:grid-cols-2">
-              <label className="block text-sm text-neutral-700">
+              <label className="label">
                 Sana
                 <input
                   type="date"
@@ -332,7 +331,7 @@ export function SettingsForm({ invitation }: { invitation: InvitationForm }) {
                 />
               </label>
 
-              <label className="block text-sm text-neutral-700">
+              <label className="label">
                 Vaqt
                 <input
                   type="time"
@@ -343,7 +342,7 @@ export function SettingsForm({ invitation }: { invitation: InvitationForm }) {
               </label>
             </div>
 
-            <label className="block text-sm text-neutral-700">
+            <label className="label">
               Joy nomi
               <input
                 className={INPUT}
@@ -352,7 +351,7 @@ export function SettingsForm({ invitation }: { invitation: InvitationForm }) {
               />
             </label>
 
-            <label className="block text-sm text-neutral-700">
+            <label className="label">
               Manzil
               <input
                 className={INPUT}
@@ -362,7 +361,7 @@ export function SettingsForm({ invitation }: { invitation: InvitationForm }) {
             </label>
 
             <div className="grid gap-4 sm:grid-cols-2">
-              <label className="block text-sm text-neutral-700">
+              <label className="label">
                 Kenglik (lat)
                 <input
                   className={INPUT}
@@ -371,7 +370,7 @@ export function SettingsForm({ invitation }: { invitation: InvitationForm }) {
                 />
               </label>
 
-              <label className="block text-sm text-neutral-700">
+              <label className="label">
                 Uzunlik (lng)
                 <input
                   className={INPUT}
@@ -386,7 +385,7 @@ export function SettingsForm({ invitation }: { invitation: InvitationForm }) {
 
       {/* Suratlar */}
       <section className="space-y-4">
-        <h2 className="text-lg font-medium text-neutral-900">Suratlar</h2>
+        <h2 className="text-lg font-medium text-ink">Suratlar</h2>
 
         <input
           type="file"
@@ -422,7 +421,7 @@ export function SettingsForm({ invitation }: { invitation: InvitationForm }) {
 
       {/* Musiqa */}
       <section className="space-y-4">
-        <h2 className="text-lg font-medium text-neutral-900">Fon musiqasi</h2>
+        <h2 className="text-lg font-medium text-ink">Fon musiqasi</h2>
 
         <input
           type="file"
@@ -443,7 +442,7 @@ export function SettingsForm({ invitation }: { invitation: InvitationForm }) {
                   router.refresh();
                 })
               }
-              className="rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-600 hover:bg-neutral-50"
+              className="rounded-lg border border-line-strong px-3 py-2 text-sm text-ink-soft hover:bg-paper-sunk"
             >
               O&apos;chirish
             </button>
@@ -451,22 +450,22 @@ export function SettingsForm({ invitation }: { invitation: InvitationForm }) {
         )}
       </section>
 
-      {busy && <p className="text-sm text-neutral-500">Yuklanmoqda...</p>}
+      {busy && <p className="text-sm text-ink-faint">Yuklanmoqda...</p>}
       {message && (
-        <p className="rounded-lg bg-green-50 px-4 py-3 text-sm text-green-700">
+        <p className="rounded-lg bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
           {message}
         </p>
       )}
       {error && (
-        <p className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">{error}</p>
+        <p className="rounded-lg bg-anor-soft px-4 py-3 text-sm text-anor">{error}</p>
       )}
 
-      <div className="flex flex-wrap items-center justify-between gap-3 border-t border-neutral-200 pt-6">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-t border-line pt-6">
         <button
           type="button"
           onClick={save}
           disabled={pending || busy}
-          className="rounded-lg bg-neutral-900 px-6 py-2.5 text-sm font-medium text-white hover:bg-neutral-700 disabled:opacity-50"
+          className="rounded-lg bg-ink px-6 py-2.5 text-sm font-medium text-white hover:bg-ink-soft disabled:opacity-50"
         >
           {pending ? "Saqlanmoqda..." : "Saqlash"}
         </button>
@@ -475,7 +474,7 @@ export function SettingsForm({ invitation }: { invitation: InvitationForm }) {
           type="button"
           onClick={remove}
           disabled={pending}
-          className="rounded-lg border border-red-200 px-5 py-2.5 text-sm font-medium text-red-600 hover:bg-red-50 disabled:opacity-50"
+          className="rounded-lg border border-red-200 px-5 py-2.5 text-sm font-medium text-anor hover:bg-anor-soft disabled:opacity-50"
         >
           Taklifnomani o&apos;chirish
         </button>

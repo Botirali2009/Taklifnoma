@@ -12,8 +12,8 @@ export default async function AdminTemplatesPage() {
 
   return (
     <div>
-      <h2 className="text-lg font-medium text-neutral-900">Shablonlar</h2>
-      <p className="mt-1 text-sm text-neutral-500">
+      <h2 className="text-lg font-medium text-ink">Shablonlar</h2>
+      <p className="mt-1 text-sm text-ink-faint">
         Shablon kodi <code>src/components/templates</code> ichidagi komponentga
         mos kelishi kerak. Mavjud komponentlar:{" "}
         {Object.keys(TEMPLATE_COMPONENTS).join(", ")}

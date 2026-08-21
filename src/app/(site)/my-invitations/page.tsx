@@ -43,37 +43,39 @@ export default async function MyInvitationsPage() {
   }
 
   return (
-    <main className="mx-auto max-w-4xl px-6 py-16">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-3xl font-semibold text-neutral-900">
-          Mening taklifnomalarim
-        </h1>
+    <main className="mx-auto max-w-5xl px-5 py-16">
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p className="eyebrow">Sizning ishlaringiz</p>
+          <h1 className="section-title mt-3">Mening taklifnomalarim</h1>
+        </div>
 
-        <Link
-          href="/templates"
-          className="rounded-lg bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-700"
-        >
+        <Link href="/templates" className="btn-brass btn-sm">
           Yangi yaratish
         </Link>
       </div>
 
       {invitations.length === 0 ? (
-        <p className="mt-10 rounded-2xl border border-dashed border-neutral-300 p-10 text-center text-neutral-500">
-          Hozircha taklifnoma yo&apos;q. Shablon tanlab birinchisini yarating.
-        </p>
+        <div className="mt-12 rounded-card border border-dashed border-line-strong p-12 text-center">
+          <p className="font-display text-2xl">Hozircha taklifnoma yo&apos;q</p>
+          <p className="mx-auto mt-2 max-w-prose text-sm text-ink-soft">
+            Shablon tanlab birinchisini yarating — bir necha daqiqada tayyor
+            bo&apos;ladi.
+          </p>
+          <Link href="/templates" className="btn-brass btn-sm mt-6">
+            Shablon tanlash
+          </Link>
+        </div>
       ) : (
-        <ul className="mt-10 grid gap-5 sm:grid-cols-2">
+        <ul className="mt-12 grid gap-5 sm:grid-cols-2">
           {invitations.map((invitation) => {
             const event = invitation.events[0];
             const cover = invitation.photos[0];
             const stats = statsFor(invitation.id);
 
             return (
-              <li
-                key={invitation.id}
-                className="overflow-hidden rounded-2xl border border-neutral-200"
-              >
-                <div className="flex h-36 items-center justify-center bg-neutral-100">
+              <li key={invitation.id} className="card overflow-hidden">
+                <div className="flex h-40 items-center justify-center bg-paper-sunk">
                   {cover ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
@@ -82,61 +84,63 @@ export default async function MyInvitationsPage() {
                       className="h-full w-full object-cover"
                     />
                   ) : (
-                    <span className="font-serif text-2xl text-neutral-400">
+                    <span className="font-display text-2xl text-ink-faint">
                       {invitation.brideName} &amp; {invitation.groomName}
                     </span>
                   )}
                 </div>
 
-                <div className="p-5">
+                <div className="p-6">
                   <div className="flex items-start justify-between gap-3">
                     <div>
-                      <h2 className="font-medium text-neutral-900">
+                      <h2 className="font-display text-xl font-semibold">
                         {invitation.brideName} &amp; {invitation.groomName}
                       </h2>
-                      <p className="mt-1 text-sm text-neutral-600">
+                      <p className="mt-1 text-sm text-ink-soft">
                         {EVENT_TYPE_LABELS[invitation.eventType]}
                         {event && ` · ${formatDateTime(event.startsAt)}`}
                       </p>
                     </div>
 
-                    <span className="shrink-0 rounded-full bg-neutral-100 px-2 py-1 text-xs text-neutral-600">
+                    <span className="pill-neutral shrink-0">
                       {invitation.template.name}
                     </span>
                   </div>
 
-                  <dl className="mt-4 grid grid-cols-3 gap-2 text-center">
+                  <dl className="mt-5 grid grid-cols-3 gap-2 text-center">
                     {[
                       ["Javob", stats.answers],
                       ["Keladi", stats.coming],
                       ["Mehmon", stats.people],
                     ].map(([label, value]) => (
-                      <div key={label} className="rounded-lg bg-neutral-50 py-2">
-                        <dt className="text-xs text-neutral-500">{label}</dt>
-                        <dd className="text-lg font-semibold text-neutral-900">
+                      <div
+                        key={label}
+                        className="rounded-lg border border-line bg-paper py-2.5"
+                      >
+                        <dt className="text-[11px] uppercase tracking-wide text-ink-faint">
+                          {label}
+                        </dt>
+                        <dd className="mt-0.5 text-xl font-semibold tabular-nums">
                           {value}
                         </dd>
                       </div>
                     ))}
                   </dl>
 
-                  <div className="mt-4 flex flex-wrap gap-2">
+                  <div className="mt-5 flex flex-wrap gap-2">
                     <Link
                       href={`/dashboard/${invitation.id}`}
-                      className="rounded-lg bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-700"
+                      className="btn-primary btn-sm"
                     >
                       Boshqaruv
                     </Link>
                     <Link
                       href={`/dashboard/${invitation.id}/settings`}
-                      className="rounded-lg border border-neutral-300 px-4 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
+                      className="btn-ghost btn-sm"
                     >
                       Tahrirlash
                     </Link>
-                    <Link
-                      href={`/i/${invitation.slug}`}
-                      className="rounded-lg border border-neutral-300 px-4 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
-                    >
+                    <Link href={`/i/${invitation.slug}`} className="btn-ghost btn-sm">
                       Ko&apos;rish
                     </Link>
                   </div>

@@ -14,7 +14,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="uz">
-      <body className="antialiased">
+      <head>
+        {/* Shriftlar brauzer tomonidan yuklanadi — build internetga bog'liq bo'lmasin */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        {/* Root layout — barcha sahifalarga tegishli, shuning uchun qoida bu yerda o'rinli emas */}
+        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap"
+        />
+      </head>
+      <body>
         {/* JavaScript o'chirilgan bo'lsa animatsiyali bloklar ko'rinib tursin */}
         <noscript>
           <style>{`[data-reveal]{opacity:1 !important;transform:none !important}`}</style>

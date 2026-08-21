@@ -35,11 +35,11 @@ export function DeleteInvitationButton({ invitationId, label }: Props) {
         type="button"
         onClick={remove}
         disabled={pending}
-        className="text-sm text-red-600 hover:underline disabled:opacity-50"
+        className="text-sm text-anor hover:underline disabled:opacity-50"
       >
         O&apos;chirish
       </button>
-      {error && <p className="text-xs text-red-600">{error}</p>}
+      {error && <p className="text-xs text-anor">{error}</p>}
     </>
   );
 }

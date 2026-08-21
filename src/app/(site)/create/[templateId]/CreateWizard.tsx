@@ -7,8 +7,7 @@ import { getTemplateComponent } from "@/components/templates";
 import type { InvitationView } from "@/components/templates";
 import type { EventType } from "@/generated/prisma/enums";
 
-const INPUT =
-  "mt-1 w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm outline-none focus:border-neutral-900";
+const INPUT = "input";
 
 const STEPS = ["Ismlar", "Tadbir", "Suratlar", "Musiqa", "Ko'rib chiqish"];
 
@@ -207,10 +206,10 @@ export function CreateWizard({ templateCode }: { templateCode: string }) {
             key={label}
             className={
               index === step
-                ? "rounded-full bg-neutral-900 px-3 py-1 font-medium text-white"
+                ? "rounded-full bg-brass px-3 py-1 font-medium text-white"
                 : index < step
-                  ? "rounded-full bg-neutral-200 px-3 py-1 text-neutral-700"
-                  : "rounded-full border border-neutral-200 px-3 py-1 text-neutral-400"
+                  ? "rounded-full bg-paper-sunk px-3 py-1 text-ink-soft"
+                  : "rounded-full border border-line px-3 py-1 text-ink-faint"
             }
           >
             {index + 1}. {label}
@@ -222,7 +221,7 @@ export function CreateWizard({ templateCode }: { templateCode: string }) {
         {step === 0 && (
           <>
             <div className="grid gap-4 sm:grid-cols-2">
-              <label className="block text-sm text-neutral-700">
+              <label className="label">
                 Kelin ismi
                 <input
                   className={INPUT}
@@ -232,7 +231,7 @@ export function CreateWizard({ templateCode }: { templateCode: string }) {
                 />
               </label>
 
-              <label className="block text-sm text-neutral-700">
+              <label className="label">
                 Kuyov ismi
                 <input
                   className={INPUT}
@@ -243,7 +242,7 @@ export function CreateWizard({ templateCode }: { templateCode: string }) {
               </label>
             </div>
 
-            <label className="block text-sm text-neutral-700">
+            <label className="label">
               Tadbir turi
               <select
                 className={INPUT}
@@ -259,7 +258,7 @@ export function CreateWizard({ templateCode }: { templateCode: string }) {
               </select>
             </label>
 
-            <label className="block text-sm text-neutral-700">
+            <label className="label">
               Mehmonlarga murojaat (ixtiyoriy)
               <textarea
                 className={INPUT}
@@ -274,7 +273,7 @@ export function CreateWizard({ templateCode }: { templateCode: string }) {
 
         {step === 1 && (
           <>
-            <label className="block text-sm text-neutral-700">
+            <label className="label">
               Tadbir nomi
               <input
                 className={INPUT}
@@ -284,7 +283,7 @@ export function CreateWizard({ templateCode }: { templateCode: string }) {
             </label>
 
             <div className="grid gap-4 sm:grid-cols-2">
-              <label className="block text-sm text-neutral-700">
+              <label className="label">
                 Sana
                 <input
                   type="date"
@@ -294,7 +293,7 @@ export function CreateWizard({ templateCode }: { templateCode: string }) {
                 />
               </label>
 
-              <label className="block text-sm text-neutral-700">
+              <label className="label">
                 Vaqt
                 <input
                   type="time"
@@ -305,7 +304,7 @@ export function CreateWizard({ templateCode }: { templateCode: string }) {
               </label>
             </div>
 
-            <label className="block text-sm text-neutral-700">
+            <label className="label">
               To&apos;yxona / joy nomi
               <input
                 className={INPUT}
@@ -315,7 +314,7 @@ export function CreateWizard({ templateCode }: { templateCode: string }) {
               />
             </label>
 
-            <label className="block text-sm text-neutral-700">
+            <label className="label">
               Manzil (ixtiyoriy)
               <input
                 className={INPUT}
@@ -325,18 +324,18 @@ export function CreateWizard({ templateCode }: { templateCode: string }) {
               />
             </label>
 
-            <div className="rounded-2xl border border-neutral-200 p-4">
-              <p className="text-sm font-medium text-neutral-800">
+            <div className="rounded-card border border-line p-4">
+              <p className="text-sm font-medium text-ink">
                 Xaritadagi joylashuv (ixtiyoriy)
               </p>
-              <p className="mt-1 text-xs text-neutral-500">
+              <p className="mt-1 text-xs text-ink-faint">
                 Google Maps&apos;da joyni toping, o&apos;ng tugma bosib
                 koordinatalarni nusxalang va shu yerga qo&apos;ying — mehmon
                 sahifasida xarita ko&apos;rinadi.
               </p>
 
               <div className="mt-3 grid gap-4 sm:grid-cols-2">
-                <label className="block text-sm text-neutral-700">
+                <label className="label">
                   Kenglik (lat)
                   <input
                     className={INPUT}
@@ -346,7 +345,7 @@ export function CreateWizard({ templateCode }: { templateCode: string }) {
                   />
                 </label>
 
-                <label className="block text-sm text-neutral-700">
+                <label className="label">
                   Uzunlik (lng)
                   <input
                     className={INPUT}
@@ -359,7 +358,7 @@ export function CreateWizard({ templateCode }: { templateCode: string }) {
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2">
-              <label className="block text-sm text-neutral-700">
+              <label className="label">
                 Karta raqami (ixtiyoriy)
                 <input
                   className={INPUT}
@@ -369,7 +368,7 @@ export function CreateWizard({ templateCode }: { templateCode: string }) {
                 />
               </label>
 
-              <label className="block text-sm text-neutral-700">
+              <label className="label">
                 Karta egasi
                 <input
                   className={INPUT}
@@ -384,7 +383,7 @@ export function CreateWizard({ templateCode }: { templateCode: string }) {
 
         {step === 2 && (
           <>
-            <label className="block text-sm text-neutral-700">
+            <label className="label">
               Suratlar (bir nechta tanlash mumkin)
               <input
                 type="file"
@@ -422,7 +421,7 @@ export function CreateWizard({ templateCode }: { templateCode: string }) {
               </div>
             )}
 
-            <p className="text-xs text-neutral-500">
+            <p className="text-xs text-ink-faint">
               JPG, PNG yoki WEBP — har biri 8 MB gacha. Surat shart emas.
             </p>
           </>
@@ -430,7 +429,7 @@ export function CreateWizard({ templateCode }: { templateCode: string }) {
 
         {step === 3 && (
           <>
-            <label className="block text-sm text-neutral-700">
+            <label className="label">
               Fon musiqasi (ixtiyoriy)
               <input
                 type="file"
@@ -446,14 +445,14 @@ export function CreateWizard({ templateCode }: { templateCode: string }) {
                 <button
                   type="button"
                   onClick={() => setMusicUrl(null)}
-                  className="rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-600 hover:bg-neutral-50"
+                  className="rounded-lg border border-line-strong px-3 py-2 text-sm text-ink-soft hover:bg-paper-sunk"
                 >
                   O&apos;chirish
                 </button>
               </div>
             )}
 
-            <p className="text-xs text-neutral-500">
+            <p className="text-xs text-ink-faint">
               MP3 yoki OGG — 15 MB gacha. Mehmon sahifasida ijro tugmasi
               ko&apos;rinadi.
             </p>
@@ -461,7 +460,7 @@ export function CreateWizard({ templateCode }: { templateCode: string }) {
         )}
 
         {step === 4 && (
-          <div className="overflow-hidden rounded-2xl border border-neutral-200">
+          <div className="overflow-hidden rounded-2xl border border-line">
             <div className="scale-[0.98] origin-top">
               <Template invitation={previewData} preview />
             </div>
@@ -469,10 +468,10 @@ export function CreateWizard({ templateCode }: { templateCode: string }) {
         )}
       </div>
 
-      {busy && <p className="mt-4 text-sm text-neutral-500">Yuklanmoqda...</p>}
+      {busy && <p className="mt-4 text-sm text-ink-faint">Yuklanmoqda...</p>}
 
       {error && (
-        <p className="mt-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">
+        <p className="mt-4 rounded-lg bg-anor-soft px-4 py-3 text-sm text-anor">
           {error}
         </p>
       )}
@@ -482,7 +481,7 @@ export function CreateWizard({ templateCode }: { templateCode: string }) {
           type="button"
           onClick={back}
           disabled={step === 0}
-          className="rounded-lg border border-neutral-300 px-5 py-2.5 text-sm font-medium text-neutral-700 hover:bg-neutral-50 disabled:opacity-40"
+          className="btn-ghost"
         >
           Orqaga
         </button>
@@ -492,7 +491,7 @@ export function CreateWizard({ templateCode }: { templateCode: string }) {
             type="button"
             onClick={next}
             disabled={busy}
-            className="rounded-lg bg-neutral-900 px-6 py-2.5 text-sm font-medium text-white hover:bg-neutral-700 disabled:opacity-50"
+            className="btn-primary"
           >
             Keyingisi
           </button>
@@ -501,7 +500,7 @@ export function CreateWizard({ templateCode }: { templateCode: string }) {
             type="button"
             onClick={submit}
             disabled={pending}
-            className="rounded-lg bg-neutral-900 px-6 py-2.5 text-sm font-medium text-white hover:bg-neutral-700 disabled:opacity-50"
+            className="btn-brass"
           >
             {pending ? "Yaratilmoqda..." : "Taklifnomani yaratish"}
           </button>

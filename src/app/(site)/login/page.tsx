@@ -24,16 +24,14 @@ export default async function LoginPage({ searchParams }: Props) {
     process.env.ALLOW_DEV_LOGIN === "true";
 
   return (
-    <main className="mx-auto flex min-h-[70vh] max-w-md flex-col justify-center px-6 py-16">
-      <h1 className="text-center text-3xl font-semibold text-neutral-900">
-        Kirish
-      </h1>
-      <p className="mt-2 text-center text-neutral-600">
+    <main className="mx-auto flex min-h-[70vh] max-w-md flex-col justify-center px-5 py-16">
+      <h1 className="section-title text-center">Kirish</h1>
+      <p className="mt-3 text-center text-ink-soft">
         Taklifnoma yaratish uchun hisobingizga kiring.
       </p>
 
       {searchParams.error && (
-        <p className="mt-6 rounded-lg bg-red-50 px-4 py-3 text-center text-sm text-red-700">
+        <p className="mt-6 rounded-lg bg-anor-soft px-4 py-3 text-center text-sm text-anor">
           Kirishda xatolik yuz berdi. Qaytadan urinib ko&apos;ring.
         </p>
       )}
@@ -44,7 +42,7 @@ export default async function LoginPage({ searchParams }: Props) {
         {googleEnabled ? (
           <GoogleSignInButton callbackUrl={callbackUrl} />
         ) : (
-          <p className="rounded-lg bg-amber-50 px-4 py-3 text-sm text-amber-800">
+          <p className="rounded-lg bg-amber-50 px-4 py-3 text-sm leading-relaxed text-amber-800">
             Google login sozlanmagan — <code>GOOGLE_CLIENT_ID</code> va{" "}
             <code>GOOGLE_CLIENT_SECRET</code> ni <code>.env</code> ga qo&apos;shing.
           </p>
@@ -53,7 +51,7 @@ export default async function LoginPage({ searchParams }: Props) {
         {botUsername ? (
           <TelegramLoginButton botUsername={botUsername} callbackUrl={callbackUrl} />
         ) : (
-          <p className="rounded-lg bg-amber-50 px-4 py-3 text-sm text-amber-800">
+          <p className="rounded-lg bg-amber-50 px-4 py-3 text-sm leading-relaxed text-amber-800">
             Telegram login sozlanmagan —{" "}
             <code>NEXT_PUBLIC_TELEGRAM_BOT_USERNAME</code> va{" "}
             <code>TELEGRAM_BOT_TOKEN</code> ni qo&apos;shing.
@@ -63,7 +61,7 @@ export default async function LoginPage({ searchParams }: Props) {
 
       <Link
         href="/"
-        className="mt-8 text-center text-sm text-neutral-500 hover:underline"
+        className="mt-8 text-center text-sm text-ink-faint hover:text-ink"
       >
         Asosiy sahifaga qaytish
       </Link>

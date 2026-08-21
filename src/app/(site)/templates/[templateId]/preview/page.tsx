@@ -52,23 +52,17 @@ export default function TemplatePreviewPage({ params }: Props) {
 
   return (
     <main>
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-neutral-200 bg-white px-6 py-4">
-        <p className="text-sm text-neutral-600">
-          <span className="font-medium text-neutral-900">{meta.name}</span> —
-          namuna ko&apos;rinish
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line bg-paper px-5 py-3.5">
+        <p className="text-sm text-ink-soft">
+          <span className="font-semibold text-ink">{meta.name}</span> — namuna
+          ma&apos;lumot bilan
         </p>
 
         <div className="flex gap-2">
-          <Link
-            href="/templates"
-            className="rounded-lg border border-neutral-300 px-4 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
-          >
+          <Link href="/templates" className="btn-ghost btn-sm">
             Orqaga
           </Link>
-          <Link
-            href={`/create/${meta.code}`}
-            className="rounded-lg bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-700"
-          >
+          <Link href={`/create/${meta.code}`} className="btn-brass btn-sm">
             Shu shablonni tanlash
           </Link>
         </div>

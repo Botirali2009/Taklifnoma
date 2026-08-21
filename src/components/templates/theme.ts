@@ -98,6 +98,36 @@ export const MILLIY_THEME: TemplateTheme = {
   radius: "0.75rem",
 };
 
+/** Oltin bog' — oq fon, yirik oltin gullar */
+export const GOLDEN_THEME: TemplateTheme = {
+  bg: "#fffdf9",
+  surface: "#fffefb",
+  ink: "#3b3226",
+  soft: "#7a6c58",
+  accent: "#b3862f",
+  accentSoft: "#f7ecd5",
+  line: "#e8d9b8",
+  onAccent: "#fffdf9",
+  displayFont: `"Cormorant Garamond", ${SERIF_FALLBACK}`,
+  bodyFont: `"Manrope", ${SANS_FALLBACK}`,
+  radius: "1rem",
+};
+
+/** Tungi bog' — to'q ko'k fon, oltin gullar */
+export const NIGHT_THEME: TemplateTheme = {
+  bg: "#0b1a33",
+  surface: "#122442",
+  ink: "#f3ecdc",
+  soft: "#b3bdd0",
+  accent: "#d4af59",
+  accentSoft: "#1b2f52",
+  line: "#25406b",
+  onAccent: "#0b1a33",
+  displayFont: `"Playfair Display", ${SERIF_FALLBACK}`,
+  bodyFont: `"Manrope", ${SANS_FALLBACK}`,
+  radius: "0.75rem",
+};
+
 /** Romantik — pushti-oq, yozma shrift, gulli bezaklar */
 export const ROMANTIC_THEME: TemplateTheme = {
   bg: "#fdf7f5",

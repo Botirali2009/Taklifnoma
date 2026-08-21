@@ -138,7 +138,26 @@
   }
 }
 
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
 @layer utilities {
+  .animate-shimmer {
+    animation: shimmer 6s linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-shimmer {
+      animation: none;
+    }
+  }
+
   .text-balance {
     text-wrap: balance;
   }

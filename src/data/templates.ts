@@ -22,6 +22,32 @@ export type TemplateMeta = {
  */
 export const TEMPLATES: TemplateMeta[] = [
   {
+    code: "oltin",
+    name: "Oltin bog'",
+    description:
+      "Yirik oltin gul guldastalari, tushayotgan gulbarglar va tovlanadigan ismlar. Taklifnoma parda ochilishi bilan boshlanadi.",
+    category: "LUX",
+    preview: {
+      bg: "#fffdf9",
+      ink: "#3b3226",
+      accent: "#b3862f",
+      font: '"Cormorant Garamond", Georgia, serif',
+    },
+  },
+  {
+    code: "tungi",
+    name: "Tungi bog'",
+    description:
+      "To'q ko'k tun fonida oltin gullar va ko'k barglar. Kechki tantana uchun eng ta'sirlisi.",
+    category: "LUX",
+    preview: {
+      bg: "#0b1a33",
+      ink: "#f3ecdc",
+      accent: "#d4af59",
+      font: '"Playfair Display", Georgia, serif',
+    },
+  },
+  {
     code: "classic",
     name: "Klassik",
     description:

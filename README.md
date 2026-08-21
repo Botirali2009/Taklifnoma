@@ -155,7 +155,11 @@ e2e/                          # Uchidan-uchiga tekshiruv skripti
 
 ## Shablonlar
 
-Hozircha oltitasi: **Klassik** (fil suyagi va oltin), **Zamonaviy** (oq,
+**Premium (animatsiyali):** "Oltin bog'" va "Tungi bog'" — yirik gul
+guldastalari, oltin ramka, monogramma, tovlanadigan ismlar, tushayotgan
+gulbarglar va "Taklifnomani ochish" pardasi bilan ochiladi.
+
+Oddiyroq variantlar: **Klassik** (fil suyagi va oltin), **Zamonaviy** (oq,
 minimal), **Milliy** (zumrad, naqshli), **Lux** (to'q fon, shampan oltini),
 **Romantik** (pushti, gulli), **Foto** (muqova surat butun ekranda).
 

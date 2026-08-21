@@ -10,6 +10,23 @@ export function MusicPlayer({ src }: { src: string }) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(false);
 
+  // Parda ochilganda audio tashqaridan boshlanishi mumkin — holatni moslaymiz
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const onPlay = () => setPlaying(true);
+    const onPause = () => setPlaying(false);
+
+    audio.addEventListener("play", onPlay);
+    audio.addEventListener("pause", onPause);
+
+    return () => {
+      audio.removeEventListener("play", onPlay);
+      audio.removeEventListener("pause", onPause);
+    };
+  }, []);
+
   useEffect(() => {
     const audio = audioRef.current;
     return () => {
@@ -37,7 +54,7 @@ export function MusicPlayer({ src }: { src: string }) {
 
   return (
     <>
-      <audio ref={audioRef} src={src} loop preload="none" />
+      <audio ref={audioRef} src={src} loop preload="none" data-bg-music />
 
       <button
         type="button"

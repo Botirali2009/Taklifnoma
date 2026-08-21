@@ -1,5 +1,7 @@
 import type { ComponentType } from "react";
 import { ClassicTemplate } from "./ClassicTemplate";
+import { GoldenTemplate } from "./GoldenTemplate";
+import { NightTemplate } from "./NightTemplate";
 import { LuxTemplate } from "./LuxTemplate";
 import { MilliyTemplate } from "./MilliyTemplate";
 import { ModernTemplate } from "./ModernTemplate";
@@ -9,6 +11,8 @@ import type { TemplateProps } from "./types";
 
 /** Template.code -> React komponenti */
 export const TEMPLATE_COMPONENTS: Record<string, ComponentType<TemplateProps>> = {
+  oltin: GoldenTemplate,
+  tungi: NightTemplate,
   classic: ClassicTemplate,
   modern: ModernTemplate,
   milliy: MilliyTemplate,

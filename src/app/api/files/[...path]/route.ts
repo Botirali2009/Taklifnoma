@@ -11,6 +11,7 @@ const CONTENT_TYPES: Record<string, string> = {
   ".jpg": "image/jpeg",
   ".png": "image/png",
   ".webp": "image/webp",
+  ".jpeg": "image/jpeg",
   ".mp3": "audio/mpeg",
   ".ogg": "audio/ogg",
 };

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { CopyButton } from "@/components/ui/CopyButton";
 import { ShareButtons } from "@/components/ui/ShareButtons";
 import { GuestFilters } from "./GuestFilters";
+import { WishesManager } from "./WishesManager";
 import { prisma } from "@/lib/prisma";
 import { requireUser } from "@/lib/session";
 import { appUrl } from "@/lib/url";
@@ -31,6 +32,7 @@ export default async function DashboardPage({ params, searchParams }: Props) {
     where: { id: params.invitationId, userId: user.id },
     include: {
       events: { orderBy: { order: "asc" } },
+      wishes: { orderBy: { createdAt: "desc" } },
       _count: { select: { wishes: true } },
     },
   });
@@ -142,6 +144,12 @@ export default async function DashboardPage({ params, searchParams }: Props) {
           >
             Chop etish uchun PDF
           </a>
+          <a
+            href={`/api/invitations/${invitation.id}/guests`}
+            className="btn-ghost btn-sm"
+          >
+            Mehmonlar (CSV)
+          </a>
         </div>
 
         <div className="mt-5 border-t border-line pt-5">
@@ -240,6 +248,26 @@ export default async function DashboardPage({ params, searchParams }: Props) {
             </table>
           </div>
         )}
+      </section>
+
+      {/* Tilaklar — egasi yashira yoki o'chira oladi */}
+      <section className="card-pad mt-5">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <h2 className="text-base font-semibold">Tilaklar</h2>
+          <p className="text-sm text-ink-faint">
+            Yashirilgan tilak mehmon sahifasida ko&apos;rinmaydi
+          </p>
+        </div>
+
+        <WishesManager
+          wishes={invitation.wishes.map((wish) => ({
+            id: wish.id,
+            authorName: wish.authorName,
+            message: wish.message,
+            isVisible: wish.isVisible,
+            createdAt: formatDateTime(wish.createdAt),
+          }))}
+        />
       </section>
     </main>
   );

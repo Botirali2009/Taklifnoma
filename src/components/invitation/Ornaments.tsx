@@ -90,3 +90,36 @@ export function CornerFlourish({
     </svg>
   );
 }
+
+/** Romantik shablon uchun gul shoxchasi */
+export function FloralSprig({
+  className = "",
+  flip = false,
+}: {
+  className?: string;
+  flip?: boolean;
+}) {
+  return (
+    <svg
+      viewBox="0 0 80 80"
+      className={`h-16 w-16 ${className}`}
+      style={{
+        color: "var(--tpl-accent)",
+        transform: flip ? "scaleX(-1)" : undefined,
+      }}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.2"
+      strokeLinecap="round"
+      aria-hidden
+    >
+      <path d="M40 76C40 52 30 34 8 24" opacity="0.5" />
+      <path d="M26 46c-6-2-10-7-11-13 6 0 12 3 14 8" opacity="0.65" />
+      <path d="M34 60c-7-1-12-5-14-11 6-1 12 2 15 7" opacity="0.65" />
+      <path d="M31 33c-4-5-4-11-1-16 5 3 8 8 7 14" opacity="0.65" />
+      <circle cx="40" cy="76" r="2" fill="currentColor" stroke="none" opacity="0.7" />
+      <circle cx="18" cy="20" r="3.2" fill="currentColor" stroke="none" opacity="0.45" />
+      <circle cx="12" cy="30" r="2.2" fill="currentColor" stroke="none" opacity="0.35" />
+    </svg>
+  );
+}

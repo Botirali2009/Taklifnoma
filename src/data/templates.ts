@@ -61,6 +61,32 @@ export const TEMPLATES: TemplateMeta[] = [
     },
   },
   {
+    code: "romantik",
+    name: "Romantik",
+    description:
+      "Pushti-oq ranglar, gul shoxchalari va yumshoq burchaklar. Nozik va iliq.",
+    category: "ZAMONAVIY",
+    preview: {
+      bg: "#fdf7f5",
+      ink: "#4a3336",
+      accent: "#b4656f",
+      font: '"Cormorant Garamond", Georgia, serif',
+    },
+  },
+  {
+    code: "foto",
+    name: "Foto",
+    description:
+      "Muqova surat butun ekranni egallaydi, matn surat ustidan tushadi. Suratlaringiz asosiy bo'lsa.",
+    category: "MINIMALIST",
+    preview: {
+      bg: "#0f0f0f",
+      ink: "#f4f4f2",
+      accent: "#e8e8e4",
+      font: '"Manrope", system-ui, sans-serif',
+    },
+  },
+  {
     code: "lux",
     name: "Lux",
     description:

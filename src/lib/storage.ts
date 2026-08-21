@@ -14,6 +14,10 @@ export const MAX_AUDIO_BYTES = 15 * 1024 * 1024; // 15 MB
 export const ALLOWED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp"];
 export const ALLOWED_AUDIO_TYPES = ["audio/mpeg", "audio/mp3", "audio/ogg"];
 
+/** Yuklangan suratlar shu o'lchamgacha kichraytiriladi */
+const MAX_IMAGE_DIMENSION = 2000;
+const WEBP_QUALITY = 82;
+
 const EXTENSIONS: Record<string, string> = {
   "image/jpeg": "jpg",
   "image/png": "png",
@@ -47,9 +51,35 @@ export async function saveFile(
   file: File,
   folder: "photos" | "music",
 ): Promise<string> {
-  const extension = EXTENSIONS[file.type] ?? "bin";
+  let extension = EXTENSIONS[file.type] ?? "bin";
+  let contentType = file.type;
+  let buffer = Buffer.from(await file.arrayBuffer());
+
+  // Suratlarni siqamiz: telefondan kelgan 8 MB lik fayl mehmon sahifasini sekinlashtiradi
+  if (folder === "photos") {
+    try {
+      const sharp = (await import("sharp")).default;
+
+      buffer = await sharp(buffer)
+        .rotate() // EXIF burilishini hisobga oladi
+        .resize({
+          width: MAX_IMAGE_DIMENSION,
+          height: MAX_IMAGE_DIMENSION,
+          fit: "inside",
+          withoutEnlargement: true,
+        })
+        .webp({ quality: WEBP_QUALITY })
+        .toBuffer();
+
+      extension = "webp";
+      contentType = "image/webp";
+    } catch (cause) {
+      // Siqib bo'lmasa (masalan sharp o'rnatilmagan) — originalni saqlaymiz
+      console.warn("Rasmni siqib bo'lmadi, original saqlanadi:", cause);
+    }
+  }
+
   const key = `${folder}/${randomUUID()}.${extension}`;
-  const buffer = Buffer.from(await file.arrayBuffer());
 
   if (r2Configured()) {
     // Dinamik import — R2 ishlatilmasa AWS SDK yuklanmaydi
@@ -69,7 +99,7 @@ export async function saveFile(
         Bucket: process.env.R2_BUCKET!,
         Key: key,
         Body: buffer,
-        ContentType: file.type,
+        ContentType: contentType,
       }),
     );
 

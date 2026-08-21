@@ -98,6 +98,36 @@ export const MILLIY_THEME: TemplateTheme = {
   radius: "0.75rem",
 };
 
+/** Romantik — pushti-oq, yozma shrift, gulli bezaklar */
+export const ROMANTIC_THEME: TemplateTheme = {
+  bg: "#fdf7f5",
+  surface: "#ffffff",
+  ink: "#4a3336",
+  soft: "#8a6b6e",
+  accent: "#b4656f",
+  accentSoft: "#f7e6e6",
+  line: "#efdcdb",
+  onAccent: "#ffffff",
+  displayFont: `"Cormorant Garamond", ${SERIF_FALLBACK}`,
+  bodyFont: `"Manrope", ${SANS_FALLBACK}`,
+  radius: "1.25rem",
+};
+
+/** Foto — surat asosiy, matn ustidan tushadi */
+export const PHOTO_THEME: TemplateTheme = {
+  bg: "#0f0f0f",
+  surface: "#191919",
+  ink: "#f4f4f2",
+  soft: "#a5a5a1",
+  accent: "#e8e8e4",
+  accentSoft: "#242424",
+  line: "#2c2c2c",
+  onAccent: "#141414",
+  displayFont: `"Manrope", ${SANS_FALLBACK}`,
+  bodyFont: `"Manrope", ${SANS_FALLBACK}`,
+  radius: "0.5rem",
+};
+
 /** Lux — to'q tun va shampan oltini */
 export const LUX_THEME: TemplateTheme = {
   bg: "#121110",

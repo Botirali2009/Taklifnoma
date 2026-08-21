@@ -23,18 +23,18 @@
 
 ## Texnik qarzlar va yaxshilashlar
 
-- **Shablonlar**: hozircha bitta ("Klassik"). Yana 4-7 ta kerak
-  (zamonaviy, lux, minimalist, milliy).
-- **Rasm optimizatsiyasi**: yuklangan suratlar siqilmaydi. `sharp` bilan
-  resize/webp qilish kerak (hozir 8 MB gacha original saqlanadi).
+- **Shablonlar**: oltita bor. Yana qo'shish oson — `theme.ts` ga mavzu,
+  keyin komponent va katalog yozuvi.
+- **Rasm optimizatsiyasi**: `sharp` bilan 2000px gacha kichraytirilib, webp
+  sifatida saqlanadi (3.3 MB PNG -> 84 KB). Sharp ishlamasa, original saqlanadi.
 - **`next/image`** ishlatilmayapti (oddiy `<img>`), chunki R2/lokal
   manzillar dinamik. R2 domeni aniq bo'lgach `next.config.mjs` ga
   `images.remotePatterns` qo'shib almashtirish mumkin.
 - **Mehmonlar ro'yxatini oldindan kiritish**: hozir Guest yozuvlari faqat
   RSVP javobidan yaratiladi. Egasi ro'yxatni oldindan yuklab (CSV),
   har biriga shaxsiy havola yuborishi foydali bo'lardi.
-- **Tilaklar moderatsiyasi**: `Wish.is_visible` maydoni bor, lekin
-  dashboardda yashirish tugmasi yo'q.
+- **Mehmonlar ro'yxati eksporti**: CSV yuklab olish bor; CSV'dan yuklash
+  (import) hali yo'q.
 - **Eslatma faqat Telegram orqali**: telefon raqami bor, lekin SMS yo'q.
 - **Sessiya strategiyasi**: JWT. Har so'rovda rol bazadan o'qiladi —
   trafik o'sganda keshlash kerak bo'lishi mumkin.

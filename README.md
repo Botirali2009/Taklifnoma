@@ -155,8 +155,9 @@ e2e/                          # Uchidan-uchiga tekshiruv skripti
 
 ## Shablonlar
 
-Hozircha to'rttasi: **Klassik** (fil suyagi va oltin), **Zamonaviy** (oq,
-minimal), **Milliy** (zumrad, naqshli), **Lux** (to'q fon, shampan oltini).
+Hozircha oltitasi: **Klassik** (fil suyagi va oltin), **Zamonaviy** (oq,
+minimal), **Milliy** (zumrad, naqshli), **Lux** (to'q fon, shampan oltini),
+**Romantik** (pushti, gulli), **Foto** (muqova surat butun ekranda).
 
 Har bir shablon `src/components/templates/theme.ts` dagi mavzuni beradi —
 ranglar va shriftlar CSS o'zgaruvchilariga aylanadi, umumiy bo'limlar

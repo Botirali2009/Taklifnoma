@@ -5,21 +5,45 @@ import { useState } from "react";
 
 type Photo = { id: string; url: string };
 
-export function PhotoGallery({ photos, alt }: { photos: Photo[]; alt: string }) {
+type GalleryProps = {
+  photos: Photo[];
+  alt: string;
+  /** grid — bir xil kataklar, arch — yuqorisi yumaloq (milliy), strip — kengaytirilgan birinchi surat */
+  layout?: "grid" | "arch" | "strip";
+};
+
+export function PhotoGallery({ photos, alt, layout = "grid" }: GalleryProps) {
   const [active, setActive] = useState<Photo | null>(null);
 
   if (photos.length === 0) return null;
 
+  const itemClass =
+    layout === "arch"
+      ? "aspect-[3/4] w-full object-cover"
+      : layout === "strip"
+        ? "aspect-[4/5] w-full object-cover"
+        : "aspect-[3/4] w-full object-cover";
+
   return (
     <>
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+      <div
+        className={
+          layout === "strip"
+            ? "grid grid-cols-2 gap-2 sm:grid-cols-4"
+            : "grid grid-cols-2 gap-3 sm:grid-cols-3"
+        }
+      >
         {photos.map((photo, index) => (
           <motion.button
             key={photo.id}
             type="button"
             data-reveal
             onClick={() => setActive(photo)}
-            className="overflow-hidden rounded-xl"
+            className="overflow-hidden"
+            style={{
+              borderRadius:
+                layout === "arch" ? "999px 999px 0.5rem 0.5rem" : "var(--tpl-radius)",
+            }}
             initial={{ opacity: 0, scale: 0.96 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, amount: 0.2 }}
@@ -30,7 +54,7 @@ export function PhotoGallery({ photos, alt }: { photos: Photo[]; alt: string }) 
               src={photo.url}
               alt={alt}
               loading="lazy"
-              className="aspect-[3/4] w-full object-cover transition duration-300 hover:scale-105"
+              className={`${itemClass} transition duration-300 hover:scale-105`}
             />
           </motion.button>
         ))}

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { TEMPLATE_COMPONENTS } from "@/components/templates";
-import { getTemplateMeta } from "@/data/templates";
+import { TemplateThumb } from "@/components/templates/TemplateThumb";
+import { getTemplateMeta, type TemplateMeta } from "@/data/templates";
 import { prisma } from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
@@ -29,13 +30,24 @@ export default async function TemplatesPage() {
     .map((row) => {
       const meta = getTemplateMeta(row.code);
 
-      return {
+      const fallback: TemplateMeta = {
         code: row.code,
+        name: row.name,
+        description: "To'y taklifnomasi shabloni.",
+        category: row.category,
+        preview: {
+          bg: "#fdfbf7",
+          ink: "#3a3128",
+          accent: "#a9762c",
+          font: '"Cormorant Garamond", Georgia, serif',
+        },
+      };
+
+      return {
+        meta: meta ?? fallback,
         name: row.name,
         category: row.category,
         previewUrl: row.previewUrl,
-        description: meta?.description ?? "To'y taklifnomasi shabloni.",
-        accent: meta?.accent ?? "#3d3529",
       };
     });
 
@@ -44,8 +56,8 @@ export default async function TemplatesPage() {
       <p className="eyebrow">Katalog</p>
       <h1 className="section-title mt-3">Shablonlar</h1>
       <p className="mt-3 max-w-prose text-ink-soft">
-        Yoqqan shablonni tanlang — ma&apos;lumotlaringizni keyin kiritasiz.
-        Har birini avval namunada ko&apos;rib olsangiz bo&apos;ladi.
+        Yoqqan shablonni tanlang — ma&apos;lumotlaringizni keyin kiritasiz. Har
+        birini avval namunada to&apos;liq ko&apos;rib olsangiz bo&apos;ladi.
       </p>
 
       {templates.length === 0 ? (
@@ -57,28 +69,21 @@ export default async function TemplatesPage() {
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {templates.map((template) => (
             <article
-              key={template.code}
-              className="card group overflow-hidden transition hover:shadow-lift"
+              key={template.meta.code}
+              className="card overflow-hidden transition hover:shadow-lift"
             >
               {template.previewUrl ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={template.previewUrl}
                   alt={template.name}
-                  className="h-48 w-full object-cover"
+                  className="h-52 w-full object-cover"
                 />
               ) : (
-                <div
-                  className="flex h-48 items-center justify-center"
-                  style={{ backgroundColor: template.accent }}
-                >
-                  <span className="rounded-lg bg-white/90 px-5 py-2.5 font-display text-xl text-ink">
-                    {template.name}
-                  </span>
-                </div>
+                <TemplateThumb meta={template.meta} />
               )}
 
-              <div className="p-6">
+              <div className="border-t border-line p-6">
                 <div className="flex items-start justify-between gap-3">
                   <h2 className="font-display text-xl font-semibold">
                     {template.name}
@@ -89,15 +94,18 @@ export default async function TemplatesPage() {
                 </div>
 
                 <p className="mt-2 text-sm leading-relaxed text-ink-soft">
-                  {template.description}
+                  {template.meta.description}
                 </p>
 
                 <div className="mt-5 flex gap-2">
-                  <Link href={`/create/${template.code}`} className="btn-primary btn-sm">
+                  <Link
+                    href={`/create/${template.meta.code}`}
+                    className="btn-primary btn-sm"
+                  >
                     Tanlash
                   </Link>
                   <Link
-                    href={`/templates/${template.code}/preview`}
+                    href={`/templates/${template.meta.code}/preview`}
                     className="btn-ghost btn-sm"
                   >
                     Namuna

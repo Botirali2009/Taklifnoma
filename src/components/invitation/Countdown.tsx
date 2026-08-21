@@ -39,11 +39,21 @@ export function Countdown({ target }: { target: string | Date }) {
   if (!parts) return null;
 
   return (
-    <div className="flex justify-center gap-3 sm:gap-6">
+    <div className="flex justify-center gap-4 sm:gap-7">
       {LABELS.map(([key, label]) => (
-        <div key={key} className="min-w-16 text-center">
-          <p className="font-serif text-3xl tabular-nums">{parts[key]}</p>
-          <p className="mt-1 text-xs uppercase tracking-wider opacity-70">{label}</p>
+        <div key={key} className="min-w-14 text-center">
+          <p
+            className="text-3xl tabular-nums sm:text-4xl"
+            style={{ fontFamily: "var(--tpl-display)", color: "var(--tpl-accent)" }}
+          >
+            {String(parts[key]).padStart(2, "0")}
+          </p>
+          <p
+            className="mt-1.5 text-[10px] uppercase tracking-[0.2em]"
+            style={{ color: "var(--tpl-soft)" }}
+          >
+            {label}
+          </p>
         </div>
       ))}
     </div>

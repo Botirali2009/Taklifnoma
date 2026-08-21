@@ -153,14 +153,27 @@ src/lib/                      # prisma, auth, storage, slug, qr, telegram-bot
 e2e/                          # Uchidan-uchiga tekshiruv skripti
 ```
 
-## Yangi shablon qo'shish
+## Shablonlar
 
-1. `src/components/templates/` ichida komponent yozing (`TemplateProps` qabul qiladi).
-2. `src/components/templates/index.ts` dagi `TEMPLATE_COMPONENTS` ga
+Hozircha to'rttasi: **Klassik** (fil suyagi va oltin), **Zamonaviy** (oq,
+minimal), **Milliy** (zumrad, naqshli), **Lux** (to'q fon, shampan oltini).
+
+Har bir shablon `src/components/templates/theme.ts` dagi mavzuni beradi —
+ranglar va shriftlar CSS o'zgaruvchilariga aylanadi, umumiy bo'limlar
+(countdown, galereya, tadbirlar, sovg'a, tilaklar, RSVP) shularni o'qiydi.
+Shuning uchun yangi shablon asosan mavzu + bezak va tartibdan iborat.
+
+### Yangi shablon qo'shish
+
+1. `theme.ts` ga mavzu qo'shing (ranglar, shriftlar, radius).
+2. `src/components/templates/` ichida komponent yozing — `InvitationShell`
+   ichida umumiy bo'limlarni terib chiqing.
+3. `src/components/templates/index.ts` dagi `TEMPLATE_COMPONENTS` ga
    `code -> komponent` qatorini qo'shing.
-3. `src/data/templates.ts` ga meta ma'lumot qo'shing.
-4. Admin panelda (`/admin/templates`) shu kod bilan shablon yarating —
-   yoki `npm run db:seed` ni ishga tushiring.
+4. `src/data/templates.ts` ga meta (nom, tavsif, katalog rangi) qo'shing.
+5. `npm run db:seed` — shablon bazaga tushadi va katalogda paydo bo'ladi.
+
+Shrift Google Fonts'dan kelsa, `src/app/layout.tsx` dagi havolaga qo'shing.
 
 ## Telegram bot
 

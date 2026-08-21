@@ -13,7 +13,13 @@ export function MapEmbed({ lat, lng, title }: Props) {
   const bbox = [lng - delta, lat - delta / 2, lng + delta, lat + delta / 2].join(",");
 
   return (
-    <div className="overflow-hidden rounded-xl border border-black/10">
+    <div
+      className="overflow-hidden"
+      style={{
+        border: "1px solid var(--tpl-line)",
+        borderRadius: "var(--tpl-radius)",
+      }}
+    >
       <iframe
         title={`${title} — xarita`}
         className="h-56 w-full"

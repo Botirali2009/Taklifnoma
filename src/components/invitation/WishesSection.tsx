@@ -22,7 +22,12 @@ function SubmitButton() {
     <button
       type="submit"
       disabled={pending}
-      className="rounded-lg bg-black/80 px-5 py-2 text-sm font-medium text-white hover:bg-black disabled:opacity-50"
+      className="px-5 py-2.5 text-sm font-semibold transition hover:opacity-90 disabled:opacity-50"
+      style={{
+        backgroundColor: "var(--tpl-accent)",
+        color: "var(--tpl-on-accent)",
+        borderRadius: "var(--tpl-radius)",
+      }}
     >
       {pending ? "Yuborilmoqda..." : "Tilak qoldirish"}
     </button>
@@ -39,10 +44,18 @@ export function WishesSection({ slug, wishes, preview = false }: Props) {
           {wishes.map((wish) => (
             <li
               key={wish.id}
-              className="rounded-2xl border border-black/10 bg-white/70 p-4 text-left"
+              className="p-4 text-left"
+              style={{
+                backgroundColor: "var(--tpl-surface)",
+                border: "1px solid var(--tpl-line)",
+                borderRadius: "var(--tpl-radius)",
+              }}
             >
-              <p className="text-sm font-medium">{wish.authorName}</p>
-              <p className="mt-1 whitespace-pre-line text-sm opacity-80">
+              <p className="text-sm font-semibold">{wish.authorName}</p>
+              <p
+                className="mt-1.5 whitespace-pre-line text-sm leading-relaxed"
+                style={{ color: "var(--tpl-soft)" }}
+              >
                 {wish.message}
               </p>
             </li>
@@ -51,7 +64,14 @@ export function WishesSection({ slug, wishes, preview = false }: Props) {
       )}
 
       {state.success ? (
-        <p className="rounded-2xl border border-black/10 bg-white/70 p-4 text-sm">
+        <p
+          className="p-4 text-sm"
+          style={{
+            backgroundColor: "var(--tpl-surface)",
+            border: "1px solid var(--tpl-line)",
+            borderRadius: "var(--tpl-radius)",
+          }}
+        >
           Tilagingiz uchun rahmat!
         </p>
       ) : (
@@ -63,7 +83,13 @@ export function WishesSection({ slug, wishes, preview = false }: Props) {
             required
             disabled={preview}
             placeholder="Ismingiz"
-            className="w-full rounded-lg border border-black/15 bg-white/80 px-3 py-2 text-sm outline-none focus:border-black/40"
+            className="w-full px-3.5 py-2.5 text-sm outline-none transition focus:opacity-100"
+            style={{
+              backgroundColor: "var(--tpl-surface)",
+              border: "1px solid var(--tpl-line)",
+              borderRadius: "var(--tpl-radius)",
+              color: "var(--tpl-ink)",
+            }}
           />
 
           <textarea
@@ -73,10 +99,20 @@ export function WishesSection({ slug, wishes, preview = false }: Props) {
             rows={3}
             maxLength={500}
             placeholder="Tilagingizni yozing..."
-            className="w-full rounded-lg border border-black/15 bg-white/80 px-3 py-2 text-sm outline-none focus:border-black/40"
+            className="w-full px-3.5 py-2.5 text-sm outline-none"
+            style={{
+              backgroundColor: "var(--tpl-surface)",
+              border: "1px solid var(--tpl-line)",
+              borderRadius: "var(--tpl-radius)",
+              color: "var(--tpl-ink)",
+            }}
           />
 
-          {state.error && <p className="text-sm text-red-600">{state.error}</p>}
+          {state.error && (
+            <p className="text-sm" style={{ color: "#b4433c" }}>
+              {state.error}
+            </p>
+          )}
 
           {!preview && <SubmitButton />}
         </form>

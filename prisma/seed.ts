@@ -9,7 +9,7 @@ async function main() {
   for (const template of TEMPLATES) {
     await prisma.template.upsert({
       where: { code: template.code },
-      update: { name: template.name, category: template.category },
+      update: { name: template.name, category: template.category, isActive: true },
       create: {
         code: template.code,
         name: template.name,

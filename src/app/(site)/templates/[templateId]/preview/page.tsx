@@ -25,7 +25,16 @@ function demoInvitation(): InvitationView {
     events: [
       {
         id: "demo-1",
-        title: "Nikoh marosimi",
+        title: "Fotosessiya",
+        startsAt: new Date(startsAt.getTime() - 24 * 60 * 60 * 1000),
+        locationName: "Anhor bo'yi",
+        address: "Toshkent sh., Anhor kanali",
+        lat: null,
+        lng: null,
+      },
+      {
+        id: "demo-2",
+        title: "To'y marosimi",
         startsAt,
         locationName: "Oq Saroy to'yxonasi",
         address: "Toshkent sh., Chilonzor tumani, 12-mavze",
@@ -33,12 +42,21 @@ function demoInvitation(): InvitationView {
         lng: 69.2401,
       },
     ],
-    photos: [],
+    photos: [
+      { id: "demo-p1", url: "/api/placeholder/photo-1.svg" },
+      { id: "demo-p2", url: "/api/placeholder/photo-2.svg" },
+      { id: "demo-p3", url: "/api/placeholder/photo-3.svg" },
+    ],
     wishes: [
       {
-        id: "demo-wish",
+        id: "demo-wish-1",
         authorName: "Aziza",
-        message: "Baxtli bo'linglar! Umringiz uzoq bo'lsin.",
+        message: "Baxtli bo'linglar! Umringiz uzoq, dasturxoningiz to'kin bo'lsin.",
+      },
+      {
+        id: "demo-wish-2",
+        authorName: "Jasur aka",
+        message: "Yosh oilaga tinchlik va farovonlik tilaymiz!",
       },
     ],
   };

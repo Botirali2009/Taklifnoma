@@ -1,17 +1,20 @@
-import Link from "next/link";
 import { Countdown } from "@/components/invitation/Countdown";
-import { MapEmbed } from "@/components/invitation/MapEmbed";
-import { MusicPlayer } from "@/components/invitation/MusicPlayer";
+import { InvitationShell } from "@/components/invitation/InvitationShell";
+import { CornerFlourish, DiamondDivider } from "@/components/invitation/Ornaments";
 import { PhotoGallery } from "@/components/invitation/PhotoGallery";
 import { Reveal } from "@/components/invitation/Reveal";
 import { WishesSection } from "@/components/invitation/WishesSection";
-import { CopyButton } from "@/components/ui/CopyButton";
-import { EVENT_TYPE_LABELS, formatDate, formatTime } from "@/lib/format";
+import { EventsList } from "@/components/invitation/sections/EventsList";
+import { GiftCard } from "@/components/invitation/sections/GiftCard";
+import { RsvpCta } from "@/components/invitation/sections/RsvpCta";
+import { SectionHeading } from "@/components/invitation/sections/SectionHeading";
+import { EVENT_TYPE_LABELS, formatDate } from "@/lib/format";
+import { CLASSIC_THEME } from "./theme";
 import type { TemplateProps } from "./types";
 
 /**
- * "Klassik" shabloni — oq fon, oltin bezaklar.
- * Boshqa shablonlar shu tuzilishni takrorlaydi, faqat dizayni farq qiladi.
+ * Klassik — fil suyagi rangidagi qog'oz, oltin bezaklar, ramka.
+ * An'anaviy to'y taklifnomasi ko'rinishi.
  */
 export function ClassicTemplate({ invitation, preview = false }: TemplateProps) {
   const {
@@ -31,161 +34,116 @@ export function ClassicTemplate({ invitation, preview = false }: TemplateProps) 
   const mainEvent = events[0];
 
   return (
-    <div className="min-h-screen bg-[#fdfbf7] text-[#3d3529]">
-      {musicUrl && !preview && <MusicPlayer src={musicUrl} />}
+    <InvitationShell theme={CLASSIC_THEME} musicUrl={musicUrl} preview={preview}>
+      {/* Sarlavha — ichki ramka bilan */}
+      <header className="px-5 pb-12 pt-10">
+        <div
+          className="relative mx-auto max-w-xl px-6 py-14 text-center sm:px-10 sm:py-16"
+          style={{ border: "1px solid var(--tpl-line)" }}
+        >
+          <CornerFlourish className="absolute left-3 top-3" />
+          <CornerFlourish className="absolute right-3 top-3" flip />
 
-      {/* Sarlavha */}
-      <header className="mx-auto max-w-2xl px-6 pb-10 pt-16 text-center">
-        <Reveal>
-          <p className="text-xs uppercase tracking-[0.4em] text-[#b98a3f]">
-            {EVENT_TYPE_LABELS[eventType]} taklifnomasi
-          </p>
-        </Reveal>
-
-        <Reveal delay={0.15}>
-          <h1 className="mt-8 font-serif text-4xl leading-tight sm:text-5xl">
-            {brideName}
-            <span className="mx-3 text-[#b98a3f]">&amp;</span>
-            {groomName}
-          </h1>
-        </Reveal>
-
-        <Reveal delay={0.3}>
-          <div className="mx-auto mt-8 h-px w-24 bg-[#b98a3f]" />
-
-          <p className="mt-8 whitespace-pre-line text-base leading-relaxed text-[#6b6053]">
-            {greeting ??
-              "Sizni oilamizning quvonchli kunida ko'rishdan mamnun bo'lamiz."}
-          </p>
-        </Reveal>
-
-        {mainEvent && (
-          <Reveal delay={0.45} className="mt-12 text-[#b98a3f]">
-            <Countdown target={mainEvent.startsAt} />
+          <Reveal>
+            <p
+              className="text-[11px] uppercase tracking-[0.36em]"
+              style={{ color: "var(--tpl-accent)" }}
+            >
+              {EVENT_TYPE_LABELS[eventType]} taklifnomasi
+            </p>
           </Reveal>
-        )}
+
+          <Reveal delay={0.12}>
+            <h1
+              className="mt-8 text-[2.6rem] leading-[1.08] sm:text-5xl"
+              style={{ fontFamily: "var(--tpl-display)" }}
+            >
+              {brideName}
+              <span className="mx-3" style={{ color: "var(--tpl-accent)" }}>
+                &amp;
+              </span>
+              {groomName}
+            </h1>
+          </Reveal>
+
+          <Reveal delay={0.24}>
+            <DiamondDivider className="mt-8" />
+
+            {mainEvent && (
+              <p
+                className="mt-6 text-sm uppercase tracking-[0.2em]"
+                style={{ color: "var(--tpl-soft)" }}
+              >
+                {formatDate(mainEvent.startsAt)}
+              </p>
+            )}
+
+            <p
+              className="mx-auto mt-6 max-w-sm whitespace-pre-line text-[15px] leading-relaxed"
+              style={{ color: "var(--tpl-soft)" }}
+            >
+              {greeting ??
+                "Sizni oilamizning quvonchli kunida ko'rishdan mamnun bo'lamiz."}
+            </p>
+          </Reveal>
+
+          {mainEvent && (
+            <Reveal delay={0.36}>
+              <div className="mt-10">
+                <Countdown target={mainEvent.startsAt} />
+              </div>
+            </Reveal>
+          )}
+        </div>
       </header>
 
-      {/* Tadbirlar */}
       {events.length > 0 && (
-        <section className="mx-auto max-w-2xl px-6 py-8">
+        <section className="mx-auto max-w-xl px-5 py-10">
           <Reveal>
-            <h2 className="text-center font-serif text-2xl">Tadbir dasturi</h2>
+            <SectionHeading title="Tadbir dasturi" />
           </Reveal>
-
-          <div className="mt-8 space-y-4">
-            {events.map((event, index) => (
-              <Reveal key={event.id} delay={index * 0.08}>
-                <article className="rounded-2xl border border-[#e8dcc6] bg-white p-6 shadow-sm">
-                  <h3 className="font-serif text-xl">{event.title}</h3>
-
-                  <p className="mt-2 text-sm text-[#6b6053]">
-                    {formatDate(event.startsAt)} · {formatTime(event.startsAt)}
-                  </p>
-
-                  <p className="mt-3 font-medium">{event.locationName}</p>
-                  {event.address && (
-                    <p className="text-sm text-[#6b6053]">{event.address}</p>
-                  )}
-
-                  {event.lat !== null && event.lng !== null && (
-                    <div className="mt-4 space-y-3">
-                      <MapEmbed
-                        lat={event.lat}
-                        lng={event.lng}
-                        title={event.locationName}
-                      />
-
-                      <a
-                        className="inline-block rounded-lg bg-[#b98a3f] px-4 py-2 text-sm font-medium text-white hover:bg-[#a2762f]"
-                        href={`https://www.google.com/maps/search/?api=1&query=${event.lat},${event.lng}`}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        Yo&apos;nalishni ochish
-                      </a>
-                    </div>
-                  )}
-                </article>
-              </Reveal>
-            ))}
+          <div className="mt-9">
+            <EventsList events={events} variant="card" />
           </div>
         </section>
       )}
 
-      {/* Foto galereya */}
       {photos.length > 0 && (
-        <section className="mx-auto max-w-2xl px-6 py-8">
+        <section className="mx-auto max-w-xl px-5 py-10">
           <Reveal>
-            <h2 className="text-center font-serif text-2xl">Bizning suratlar</h2>
+            <SectionHeading title="Bizning suratlar" />
           </Reveal>
-
-          <div className="mt-8">
+          <div className="mt-9">
             <PhotoGallery photos={photos} alt={`${brideName} va ${groomName}`} />
           </div>
         </section>
       )}
 
-      {/* Pul sovg'a */}
       {cardNumber && (
-        <section className="mx-auto max-w-2xl px-6 py-8">
+        <section className="mx-auto max-w-xl px-5 py-10">
           <Reveal>
-            <div className="rounded-2xl border border-[#e8dcc6] bg-white p-6 text-center shadow-sm">
-              <h2 className="font-serif text-2xl">Sovg&apos;a uchun</h2>
-              <p className="mt-2 text-sm text-[#6b6053]">
-                Kelolmasangiz ham, e&apos;tiboringiz biz uchun qadrli.
-              </p>
-
-              <p className="mt-4 font-mono text-lg tracking-widest">{cardNumber}</p>
-              {cardHolder && <p className="text-sm text-[#6b6053]">{cardHolder}</p>}
-
-              <CopyButton
-                value={cardNumber}
-                label="Karta raqamini nusxalash"
-                className="mt-4 rounded-lg border border-[#b98a3f] px-4 py-2 text-sm font-medium text-[#b98a3f] hover:bg-[#b98a3f] hover:text-white"
-              />
-            </div>
+            <GiftCard cardNumber={cardNumber} cardHolder={cardHolder} />
           </Reveal>
         </section>
       )}
 
-      {/* Tilaklar */}
-      <section className="mx-auto max-w-2xl px-6 py-8">
+      <section className="mx-auto max-w-xl px-5 py-10">
         <Reveal>
-          <h2 className="text-center font-serif text-2xl">Tilaklar</h2>
-          <p className="mt-2 text-center text-sm text-[#6b6053]">
-            Yosh oilaga yaxshi so&apos;zlaringizni qoldiring.
-          </p>
-
-          <div className="mt-6">
+          <SectionHeading
+            title="Tilaklar"
+            subtitle="Yosh oilaga yaxshi so'zlaringizni qoldiring."
+          />
+          <div className="mt-8">
             <WishesSection slug={slug} wishes={wishes} preview={preview} />
           </div>
         </Reveal>
       </section>
 
-      {/* RSVP */}
-      <section className="mx-auto max-w-2xl px-6 pb-20 pt-8 text-center">
+      <section className="mx-auto max-w-xl px-5 pb-20 pt-10">
         <Reveal>
-          <h2 className="font-serif text-2xl">Kela olasizmi?</h2>
-          <p className="mt-2 text-sm text-[#6b6053]">
-            Iltimos, javobingizni bildiring — mehmonlar sonini aniqlashimizga
-            yordam beradi.
-          </p>
-
-          {preview ? (
-            <span className="mt-6 inline-block cursor-not-allowed rounded-lg bg-[#b98a3f]/50 px-6 py-3 font-medium text-white">
-              Javob berish (namuna)
-            </span>
-          ) : (
-            <Link
-              href={`/i/${slug}/rsvp`}
-              className="mt-6 inline-block rounded-lg bg-[#b98a3f] px-6 py-3 font-medium text-white hover:bg-[#a2762f]"
-            >
-              Javob berish
-            </Link>
-          )}
+          <RsvpCta slug={slug} preview={preview} />
         </Reveal>
       </section>
-    </div>
+    </InvitationShell>
   );
 }
